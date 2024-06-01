@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { IoIosEyeOff, IoMdEye } from "react-icons/io";
 import { LuUsers } from "react-icons/lu";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
 //   const axiosCommon = useAxiosCommon()
 // const axiosSecure = useAxiosSecure();
+const [show, setShow] = useState(false);
 const {googleLogin,emailPasswordLogin} = useAuth();
-// const navigate = useNavigate();
+const navigate = useNavigate();
 const location = useLocation();
+const from = location?.state || '/'
 
 const handleGoogleLogin = async () => {
   try{
@@ -24,72 +27,71 @@ const handleGoogleLogin = async () => {
   }
 }
 
-// const handleEmailPasswordLogin = async (e) => {
-//   e.preventDefault();
-//   const email = e.target.email.value;
-//   const password = e.target.password.value;
-//   const account = e.target.account.value;
-// // TODO: ROLE BASED CONTROL AND ROLE BASED NAVIGATE & PRIVATE ROUTE AND CANDIDATE ONLY ACCESS ON HIS DASHBOARD & POLISH THE ACCESS
-//   try{
-//     const {data:auth} = await axiosCommon.get(`/role/${email}`)
-//     if(auth.role !== account){
-//       return toast.error('Please Select Correct Account Type!')
-//     }
-//        await emailPasswordLogin(email,password)
-//        const {data:cookie} = await axiosSecure.post(`/auth`,{email:email,role:account})
-//        if(!cookie.success){
-//         return toast.error('Suspicious Login!')
-//       }
-//        toast.success('Successfully Logged In!')
-//        setTimeout(()=>{
-//          navigate(location?.state || '/')
-//        },1000)
-//   }
-//   catch{
-//     toast.error('Something Went Wrong!')
-//   }
-// }
+const handleEmailPasswordLogin = async (e) => {
+  e.preventDefault();
+
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+  try{
+    await toast.promise(
+      emailPasswordLogin(email,password),
+      {
+        loading: 'Authenticating Your Credentials...',
+        success: 'Successfully Logged In!',
+        error: 'Failed To Authenticate'
+      }
+    )
+    setTimeout(()=>{
+      navigate(from)
+    },1000)
+  }
+  catch(error){
+    if(error.code === 'auth/invalid-credential'){
+      toast.error(`Email/Password Doesn't Match`);
+      return;
+    }
+    toast.error('Something Went Wrong!')
+  }
+}
 
   return (
-    <div className="w-full font-inter grid grid-cols-2 row-auto items-center min-h-screen">
+    <div className="w-full font-inter grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 row-auto items-center min-h-screen ">
 <div class="w-full p-6 max-w-md m-auto mx-auto bg-white rounded-lg shadow-md flex flex-col items-center">
-<div className='flex items-center gap-2'>
-            <div className='w-12 h-12 bg-primary rounded-full flex items-center justify-center'>
-                <img src="https://gist.github.com/ShejanMahamud/1f2446a51e9766dc7d01b9a0115b45c1/raw/7d4e7ecfec11aeb842339981fd2ebea77c863575/logo.svg" alt="" />
-                
-            </div>
-            <h1 className='text-lg font-medium'>NestQuest</h1>
+<div className="flex flex-col items-center gap-2 text-2xl font-medium">
+              <h1>Login</h1>
             </div>
 
-    <form class="mt-6 w-full ">
+    <form onSubmit={handleEmailPasswordLogin} class="mt-6 w-full ">
         <div>
             <label for="email" class="block text-sm text-gray-800 ">Email Address</label>
-            <input type="email" required name="email" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg   focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input type="email" required name="email" class="block w-full px-4 py-3 mt-2 text-gray-700 bg-white border rounded-lg   focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
         </div>
 
-        <div class="mt-4">
-            <div class="flex items-center justify-between">
-                <label for="password" class="block text-sm text-gray-800 ">Password</label>
-                <Link to="/forget_password" class="text-xs text-gray-600 hover:underline">Forget Password?</Link>
+        <div className="lg:col-span-1 md:col-span-1 col-span-2 mt-6">
+              <label class="block mb-2 text-sm text-gray-600  ">
+                Password
+              </label>
+              <div className="flex items-center justify-between w-full px-5 py-3 mt-2 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40">
+                <input
+                  name="password"
+                  required
+                  type={show ? "text" : "password"}
+                  placeholder="Confirm Password"
+                  class="block w-full  text-gray-700 placeholder-gray-400 focus:outline-none "
+                />
+                {show ? (
+                  <IoIosEyeOff
+                    onClick={() => setShow(!show)}
+                    className="text-gray-500 cursor-pointer"
+                  />
+                ) : (
+                  <IoMdEye
+                    onClick={() => setShow(!show)}
+                    className="text-gray-500 cursor-pointer"
+                  />
+                )}
+              </div>
             </div>
-
-            <input type="password" name="password" required class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border rounded-lg  focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" />
-        </div>
-        <div className="mt-6">
-            <label for="email" class="block text-sm text-gray-800 ">Who Are You?</label>
-            <select
-                required
-                name="account"
-                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400   focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40 col-span-2"
-              >
-                <option value="Select Type" disabled selected>
-                  Select Type
-                </option>
-                <option value="company">Company</option>
-                <option value="candidate">Candidate</option>
-                <option value="admin">Admin</option>
-              </select>
-        </div>
 
         <div class="mt-6">
             <button type="submit" class="w-full px-6 py-2.5 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-primary rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">
@@ -123,7 +125,7 @@ const handleGoogleLogin = async () => {
 
     <p class="mt-8 text-xs font-light text-center text-gray-400"> Don't have an account? <Link to="/register" class="font-medium text-gray-700 hover:underline"> Create One</Link></p>
 </div>
-      <div className="w-full bg-login bg-no-repeat bg-cover bg-center h-full flex items-end justify-center px-10 py-10">
+      <div className="w-full bg-login bg-no-repeat bg-cover bg-center h-full hidden md:hidden lg:flex items-end justify-center px-10 py-10">
         <div className="flex flex-col items-start gap-10">
           <h1 className="font-medium text-3xl w-[80%] text-white">
             Over 1,40,567 people waiting for good home.

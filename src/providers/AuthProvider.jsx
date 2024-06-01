@@ -22,7 +22,7 @@ const googleLogin = async () => {
 }
 
 const emailPasswordRegister = async (email,password) => {
-    return await createUserWithEmailAndPassword(email,password)
+    return await createUserWithEmailAndPassword(auth,email,password)
 }
 
 const emailPasswordLogin = async (email, password) => {
@@ -56,7 +56,7 @@ const emailPasswordLogin = async (email, password) => {
 }, [user,axiosCommon])
 
 
-  const authInfo = {googleLogin,loading,user,emailPasswordRegister,emailPasswordLogin,logOut};
+  const authInfo = {googleLogin,loading,user,emailPasswordRegister,emailPasswordLogin,logOut,setUser};
 
   return (
     <AuthContext.Provider value={authInfo}>{children}

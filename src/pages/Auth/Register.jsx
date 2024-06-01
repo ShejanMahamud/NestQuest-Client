@@ -5,7 +5,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { UploadOutlined } from '@ant-design/icons';
 import { message, Upload } from 'antd';
 import axios from "axios";
+import { updateProfile } from "firebase/auth";
+import toast from "react-hot-toast";
 import { LuUsers } from "react-icons/lu";
+import auth from "../../config/firebase.config";
+import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from './../../hooks/useAxiosSecure';
 
 const Register = () => {
@@ -15,63 +19,55 @@ const Register = () => {
   const [profilePhoto,setProfilePhoto] = useState(null)
   const [confirmShow, setConfirmShow] = useState(false);
 
-//   const { emailPasswordRegister, logOut } = useAuth();
+  const {emailPasswordRegister,setUser} = useAuth()
 
-//   const handleEmailPassRegister = async (e) => {
-//     e.preventDefault();
+  const handleEmailPassRegister = async (e) => {
+    e.preventDefault();
 
-//     const usernameRegex = /^[a-zA-Z0-9_]+$/;
-//     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).*$/;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).*$/;
 
-//     const name = e.target.name.value;
-//     const username = e.target.username.value;
-//     const email = e.target.email.value;
-//     const photo = e.target.photo.value;
-//     const password = e.target.password.value;
-//     const confirmPassword = e.target.confirm.value;
-//     const role = e.target.account.value;
-//     const terms = e.target.terms.checked;
-//     const phone_number = e.target.phone_number.value;
-//     const user = { name, username, email, phone_number, role, photo };
+    const name = e.target.name.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const confirmPassword = e.target.confirm.value;
+    const role = e.target.account.value;
+    const terms = e.target.terms.checked;
+    const phone_number = e.target.phone_number.value;
+    const user = { name, email, phone_number, role, photo: profilePhoto };
 
-//     if (!terms) {
-//       return toast.error("Please Accept Terms & Services!");
-//     }
-//     if (password !== confirmPassword) {
-//       return toast.error("Password & Confirm Password Should Be Same!");
-//     }
-//     if (!usernameRegex.test(username)) {
-//       return toast.error("Username Not Available!");
-//     }
-//     if (!passwordRegex.test(password)) {
-//       return toast.error("Password Must Be Strong!");
-//     }
+    if (!terms) {
+      return toast.error("Please Accept Terms & Services!");
+    }
+    if (password !== confirmPassword) {
+      return toast.error("Password & Confirm Password Should Be Same!");
+    }
+    if (!passwordRegex.test(password)) {
+      return toast.error("Password Must Be Strong!");
+    }
 
-//     try {
-//       await emailPasswordRegister(email, password);
-//       await updateProfile(auth.currentUser, {
-//         displayName: name,
-//         photoURL: photo,
-//       });
-//       await sendEmailVerification(auth.currentUser);
-//       if(role === 'company'){
-//         const { data } = await axiosSecure.post("/company", {company_name: name,email,company_logo: photo,phone: phone_number,plan:'free',job_limit:1,resume_access_limit: 5,resume_visibility_limit: 5,featured:false});
-//       }
-//       const { data } = await axiosSecure.post("/user", user);
-//       if (data.insertedId) {
-//         toast.success("Account Registration Successfully!");
-//         await logOut();
-//         setTimeout(() => {
-//           navigate("/email_verification");
-//         }, 1000);
-//       }
-//     } catch (error) {
-//       if (error.code === "auth/email-already-in-use") {
-//         return toast.error("User already exists!");
-//       }
-//       toast.error("Something Went Wrong!");
-//     }
-//   };
+    try {
+     const res = await emailPasswordRegister(email, password);
+      await updateProfile(auth.currentUser, {
+        displayName: name,
+        photoURL: profilePhoto,
+      });
+      setUser({ ...res?.user, photoURL: profilePhoto, displayName: name })
+
+      const { data } = await axiosSecure.post("/users", user);
+      if (data.insertedId) {
+        toast.success("Account Registration Successfully!");
+        setTimeout(() => {
+          navigate("/");
+        }, 1000);
+      }
+    } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        return toast.error("User already exists!");
+      }
+      console.log(error)
+      toast.error("Something Went Wrong!");
+    }
+  };
 
 const uploadProps = {
     name: 'file',
@@ -83,7 +79,8 @@ const uploadProps = {
 
       try {
         const response = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`, formData);
-        onSuccess(response.data);
+        onSuccess(response.data)
+
         message.success(`${file.name} File uploaded successfully.`);
         setProfilePhoto(response.data.data.url);
       } catch (error) {
@@ -94,22 +91,26 @@ const uploadProps = {
   };
 
   return (
-    <div className="w-full font-inter grid grid-cols-2 row-auto items-center min-h-screen">
+    <div className="w-full font-inter grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 row-auto items-center min-h-screen">
       <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12">
         <div class="w-full flex flex-col items-center gap-2">
-        <div className='flex items-center gap-2'>
+        {/* <div className='lg:flex items-center gap-2 hidden md:hidden'>
             <div className='w-12 h-12 bg-primary rounded-full flex items-center justify-center'>
                 <img src="https://gist.github.com/ShejanMahamud/1f2446a51e9766dc7d01b9a0115b45c1/raw/7d4e7ecfec11aeb842339981fd2ebea77c863575/logo.svg" alt="" />
                 
             </div>
             <h1 className='text-lg font-medium'>NestQuest</h1>
+            </div> */}
+
+            <div className="flex flex-col items-center gap-2 text-2xl font-medium">
+              <h1>Register</h1>
             </div>
 
           <form
-            
-            class="grid grid-cols-2 gap-6 mt-8 row-auto w-full"
+            onSubmit={handleEmailPassRegister}
+            class="w-full grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 row-auto items-center gap-5 py-5"
           >
-            <div>
+            <div  className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">
                 Your Name
               </label>
@@ -123,19 +124,21 @@ const uploadProps = {
             </div>
 
 
-            <div>
+            <div className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">
-               Uplaod Photo
+               Upload Photo
               </label>
               <div className="w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40">
               <Upload {...uploadProps}>
-    <button icon={<UploadOutlined />} className="text-gray-400 text-base">Click to Upload</button>
+    <button type="button" className="text-gray-400 text-base flex items-center gap-2">
+      <UploadOutlined />
+      <span>Click to Upload</span></button>
   </Upload>
                 
               </div>
             </div>
 
-            <div>
+            <div className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">
                 Phone Number
               </label>
@@ -148,7 +151,7 @@ const uploadProps = {
               />
             </div>
 
-            <div>
+            <div className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">
                 Email address
               </label>
@@ -161,7 +164,7 @@ const uploadProps = {
               />
             </div>
 
-            <div>
+            <div className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">Password</label>
               <div className="flex items-center justify-between w-full px-5 py-3 mt-2 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:ring focus:ring-opacity-40">
                 <input
@@ -185,7 +188,7 @@ const uploadProps = {
               </div>
             </div>
 
-            <div>
+            <div className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">
                 Confirm Password
               </label>
@@ -197,7 +200,7 @@ const uploadProps = {
                   placeholder="Confirm Password"
                   class="block w-full  text-gray-700 placeholder-gray-400 focus:outline-none "
                 />
-                {show ? (
+                {confirmShow ? (
                   <IoIosEyeOff
                     onClick={() => setConfirmShow(!confirmShow)}
                     className="text-gray-500 cursor-pointer"
@@ -211,7 +214,7 @@ const uploadProps = {
               </div>
             </div>
 
-            <div>
+            <div className="lg:col-span-1 md:col-span-1 col-span-2">
               <label class="block mb-2 text-sm text-gray-600  ">
                 Account Type
               </label>
@@ -268,7 +271,7 @@ const uploadProps = {
           </p>
         </div>
       </div>
-      <div className="w-full bg-register bg-no-repeat bg-cover bg-center h-full flex items-end justify-center px-10 py-10">
+      <div className="w-full bg-register bg-no-repeat bg-cover bg-center h-full  items-end justify-center px-10 py-10 lg:flex md:hidden hidden">
         <div className="flex flex-col items-start gap-10">
           <h1 className="font-medium text-3xl w-[80%] text-white">
             Over 1,40,567 people waiting for good home.

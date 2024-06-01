@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import { CgMenuRightAlt } from "react-icons/cg";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
-
 const Navbar = () => {
 const navigate = useNavigate()
 const [isOpen, setIsOpen] = useState(false);
 const {user,logOut} = useAuth()
-
+const [menuOpen,setMenuOpen] = useState(false)
 
 const handleLogout = async () => {
     try{
@@ -21,7 +21,7 @@ const handleLogout = async () => {
 
   return (
     <nav className=' w-full'>
-        <div className='bg-primary text-white py-3 w-full px-5 flex items-center justify-between text-sm'>
+        <div className='bg-primary text-white py-3 w-full px-5 lg:flex hidden items-center justify-between lg:text-sm text-xs'>
             <div className='flex items-center gap-2'>
                 <img src="https://gist.github.com/ShejanMahamud/ff6c6681f4619b08e037eaf64262e9c6/raw/e59587df1968f18d9103ff52f6e989e344f2c457/location.svg" alt="" />
                 <span>BondhoGate, Rajshahi, Bangladesh</span>
@@ -37,8 +37,47 @@ const handleLogout = async () => {
             </div>
             </div>
         </div>
-        <div className='bg-white px-5 py-2 w-full flex items-center justify-between'>
-            <ul className='flex items-center gap-10'>
+        <div className='bg-white px-5 py-2 w-full flex items-center justify-between '>
+        <CgMenuRightAlt onClick={()=>setMenuOpen(!menuOpen)} className='text-2xl lg:hidden md:flex flex'/>
+            <ul className={` items-center gap-10 bg-white px-10 py-5 rounded-lg z-50 ${menuOpen ? 'lg:hidden md:flex flex flex-col absolute left-5 top-16' : 'hidden'}`}>
+            <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "underline decoration-primary decoration-2 underline-offset-8 text-primary"
+                : "no-underline text-[#2B2B2B]"
+            }
+            to={"/"}
+          >
+            <li className=" font-medium lg:text-base md:text-sm text-xs cursor-pointer">
+              Home
+            </li>
+          </NavLink>
+            <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "underline decoration-primary decoration-2  underline-offset-8 text-primary"
+                : "no-underline text-[#2B2B2B]"
+            }
+            to={"/all_properties"}
+          >
+            <li className=" font-medium lg:text-base md:text-sm text-xs cursor-pointer">
+              All Properties
+            </li>
+          </NavLink>
+            <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "underline decoration-primary decoration-2 underline-offset-8"
+                : "no-underline"
+            }
+            to={"/dashboard"}
+          >
+            <li className=" font-medium lg:text-base md:text-sm text-xs cursor-pointer">
+             Dashboard
+            </li>
+          </NavLink>
+            </ul>
+            <ul className='lg:flex md:hidden hidden items-center gap-10'>
             <NavLink
             className={({ isActive }) =>
               isActive
@@ -141,9 +180,9 @@ const handleLogout = async () => {
             :
             <div onClick={()=>navigate('/login')} className='flex items-center gap-2'>
                 <img src="https://gist.github.com/ShejanMahamud/b4e7803ded7eca2af444d537ed2e5deb/raw/095b091d0bd10f4e76010d7e980af5488cb7b2eb/user.svg" alt="" />
-                <span>Login/Register</span>
+                <span className='lg:text-base md:text-sm text-sm'>Login/Register</span>
             </div>}
-            <button className='bg-primary text-white px-5 py-3 rounded-full flex items-center gap-2'>
+            <button className='bg-primary text-white px-5 py-3 rounded-full hidden md:flex lg:flex items-center gap-2'>
                 <img src="https://gist.github.com/ShejanMahamud/8f93a9df9650cd9c6fd9dcc355712709/raw/43c5835d14197a7e9939dbf69658959af6692bfc/logo-2.svg" alt="" />
                 Add Listing
             </button>
