@@ -16,7 +16,7 @@ const Banner = () => {
         {
           key: 'sale',
           label: 'For Sale',
-          children: <form className='w-full flex flex-col items-center gap-8 justify-between mt-10'>
+          children: <form className='w-full flex flex-col items-center gap-8 justify-between mt-10 font-poppins'>
             <input type="text" className='bg-[#d4d4d433] px-5 py-4 rounded-full text-[#D4D4D4] w-full focus:outline-none mt-5' placeholder='New York, San Francisco, etc'/>
             <select className='bg-[#d4d4d433] px-5 py-4 rounded-full accent-[#D4D4D4] w-full focus:outline-none' placeholder='New York, San Francisco, etc'>
                 <option disabled value="">Select Property Type</option>
@@ -40,7 +40,7 @@ const Banner = () => {
         {
           key: 'rent',
           label: 'For Rent',
-          children: <form className='w-full flex flex-col items-center gap-8 justify-between mt-10'>
+          children: <form className='font-poppins w-full flex flex-col items-center gap-8 justify-between mt-10'>
           <input type="text" className='bg-[#d4d4d433] px-5 py-4 rounded-full text-[#D4D4D4] w-full focus:outline-none mt-5' placeholder='New York, San Francisco, etc'/>
           <select className='bg-[#d4d4d433] px-5 py-4 rounded-full accent-[#D4D4D4] w-full focus:outline-none' placeholder='New York, San Francisco, etc'>
               <option disabled value="">Select Property Type</option>

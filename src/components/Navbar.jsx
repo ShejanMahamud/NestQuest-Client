@@ -3,12 +3,13 @@ import toast from 'react-hot-toast';
 import { CgMenuRightAlt } from "react-icons/cg";
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import useRole from './../hooks/useRole';
 const Navbar = () => {
 const navigate = useNavigate()
 const [isOpen, setIsOpen] = useState(false);
 const {user,logOut} = useAuth()
 const [menuOpen,setMenuOpen] = useState(false)
-
+const {role,rolePending} = useRole()
 const handleLogout = async () => {
     try{
       await logOut()
@@ -17,6 +18,14 @@ const handleLogout = async () => {
     catch{
       toast.error('Something Went Wrong!')
     }
+  }
+
+  if(rolePending){
+    return <div className="flex items-center justify-center space-x-2 w-full min-h-screen">
+    <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+    <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+    <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+  </div>
   }
 
   return (
@@ -108,7 +117,13 @@ const handleLogout = async () => {
                 ? "underline decoration-primary decoration-2 underline-offset-8"
                 : "no-underline"
             }
-            to={"/dashboard"}
+            to={
+              role === 'Admin'
+                ? '/dashboard/admin'
+                : role === 'Agent'
+                ? '/dashboard/agent'
+                : '/dashboard/user'
+            }
           >
             <li className=" font-medium text-base cursor-pointer">
              Dashboard
