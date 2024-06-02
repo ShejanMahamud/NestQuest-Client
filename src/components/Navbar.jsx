@@ -96,10 +96,10 @@ const handleLogout = async () => {
                 ? "underline decoration-primary decoration-2 underline-offset-8 text-primary"
                 : "no-underline text-[#2B2B2B]"
             }
-            to={"/all_properties"}
+            to={"/properties"}
           >
             <li className=" font-medium text-base cursor-pointer">
-              All Properties
+              Properties
             </li>
           </NavLink>
             <NavLink
