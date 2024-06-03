@@ -58,13 +58,13 @@ const AgentDashboard = () => {
           <NavLink
             className={({ isActive }) =>
               isActive
-                ? "bg-[#E7F0FA] text-primary w-full flex items-center gap-3 py-3 px-3"
+                ? "bg-[#030303] text-white rounded-lg w-full flex items-center gap-3 py-3 px-3"
                 : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
             }
-            to={"/dashboard/company/post_job"}
+            to={"/dashboard/agent/add"}
           >
             <FiPlusCircle className='text-xl'/>
-          <span className='text-base'>Post A Job</span>
+          <span className='text-base'>Add Property</span>
           </NavLink>
           <NavLink
             className={({ isActive }) =>
@@ -72,7 +72,7 @@ const AgentDashboard = () => {
                 ? "bg-[#E7F0FA] text-primary w-full flex items-center gap-3 py-3 px-3"
                 : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
             }
-            to={"/dashboard/company/jobs"}
+            to={"/dashboard/agent/jobs"}
           >
             <IoBriefcaseOutline className='text-xl'/>
           <span className='text-base'>My Jobs</span>
@@ -83,7 +83,7 @@ const AgentDashboard = () => {
                 ? "bg-[#E7F0FA] text-primary w-full flex items-center gap-3 py-3 px-3"
                 : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
             }
-            to={"/dashboard/company/saved_candidates"}
+            to={"/dashboard/agent/saved_candidates"}
           >
             <IoBookmarkOutline className='text-xl'/>
           <span className='text-base'>Saved Candidate</span>
@@ -94,7 +94,7 @@ const AgentDashboard = () => {
                 ? "bg-[#E7F0FA] text-primary w-full flex items-center gap-3 py-3 px-3"
                 : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
             }
-            to={"/dashboard/company/team"}
+            to={"/dashboard/agent/team"}
           >
             <PiUsers className='text-xl'/>
           <span className='text-base'>Team</span>

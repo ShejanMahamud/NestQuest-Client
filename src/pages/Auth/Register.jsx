@@ -3,20 +3,20 @@ import { IoIosEyeOff, IoMdEye } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 // in custom email verification page there is a problem that is its says rejected but it working [maybe a condition issue need to fix]
 import { UploadOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
-import axios from "axios";
+import { Upload } from 'antd';
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
 import { LuUsers } from "react-icons/lu";
 import auth from "../../config/firebase.config";
 import useAuth from "../../hooks/useAuth";
+import usePhotoUpload from "../../hooks/usePhotoUpload";
 import useAxiosSecure from './../../hooks/useAxiosSecure';
 
 const Register = () => {
   const axiosSecure = useAxiosSecure()
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
-  const [profilePhoto,setProfilePhoto] = useState(null)
+  const {photo,uploadProps} = usePhotoUpload()
   const [confirmShow, setConfirmShow] = useState(false);
 
   const {emailPasswordRegister,setUser} = useAuth()
@@ -33,7 +33,7 @@ const Register = () => {
     const role = e.target.account.value;
     const terms = e.target.terms.checked;
     const phone_number = e.target.phone_number.value;
-    const user = { name, email, phone_number, role, photo: profilePhoto };
+    const user = { name, email, phone_number, role, photo: photo };
 
     if (!terms) {
       return toast.error("Please Accept Terms & Services!");
@@ -51,7 +51,7 @@ const Register = () => {
         displayName: name,
         photoURL: profilePhoto,
       });
-      setUser({ ...res?.user, photoURL: profilePhoto, displayName: name })
+      setUser({ ...res?.user, photoURL: photo, displayName: name })
 
       const { data } = await axiosSecure.post("/users", user);
       if (data.insertedId) {
@@ -69,38 +69,11 @@ const Register = () => {
     }
   };
 
-const uploadProps = {
-    name: 'file',
-    multiple: false,
-    accept: 'image/*',
-    customRequest: async ({ file, onSuccess, onError }) => {
-      const formData = new FormData();
-      formData.append('image', file);
-
-      try {
-        const response = await axios.post(`https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_IMGBB_API}`, formData);
-        onSuccess(response.data)
-
-        message.success(`${file.name} File uploaded successfully.`);
-        setProfilePhoto(response.data.data.url);
-      } catch (error) {
-        onError(error);
-        message.error(`${file.name} File upload failed.`);
-      }
-    },
-  };
 
   return (
     <div className="w-full font-inter grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 row-auto items-center min-h-screen">
       <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12">
         <div class="w-full flex flex-col items-center gap-2">
-        {/* <div className='lg:flex items-center gap-2 hidden md:hidden'>
-            <div className='w-12 h-12 bg-primary rounded-full flex items-center justify-center'>
-                <img src="https://gist.github.com/ShejanMahamud/1f2446a51e9766dc7d01b9a0115b45c1/raw/7d4e7ecfec11aeb842339981fd2ebea77c863575/logo.svg" alt="" />
-                
-            </div>
-            <h1 className='text-lg font-medium'>NestQuest</h1>
-            </div> */}
 
             <div className="flex flex-col items-center gap-2 text-2xl font-medium">
               <h1>Register</h1>

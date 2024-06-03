@@ -4,6 +4,7 @@ import AdminDashboard from '../layouts/AdminDashboard';
 import AgentDashboard from '../layouts/AgentDashboard';
 import Root from '../layouts/Root';
 import UserDashboard from '../layouts/UserDashboard';
+import AgentAddProperty from '../pages/AgentDashboard/AgentAddProperty';
 import AgentOverview from '../pages/AgentDashboard/AgentOverview';
 import AgentProfile from '../pages/AgentDashboard/AgentProfile';
 import AllProperties from '../pages/AllProperties';
@@ -53,6 +54,10 @@ const Route = createBrowserRouter([
         {
           path: 'profile',
           element: <AgentProfile/>
+        },
+        {
+          path: 'add',
+          element: <AgentAddProperty/>
         }
       ]
     }
