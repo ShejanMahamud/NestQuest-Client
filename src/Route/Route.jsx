@@ -4,13 +4,19 @@ import AdminDashboard from '../layouts/AdminDashboard';
 import AgentDashboard from '../layouts/AgentDashboard';
 import Root from '../layouts/Root';
 import UserDashboard from '../layouts/UserDashboard';
+import AdminManageProperties from '../pages/AdminDashboard/AdminManageProperties';
+import AdminManageReviews from '../pages/AdminDashboard/AdminManageReviews';
+import AdminManageUsers from '../pages/AdminDashboard/AdminManageUsers';
+import AdminOverview from '../pages/AdminDashboard/AdminOverview';
 import AgentAddProperty from '../pages/AgentDashboard/AgentAddProperty';
+import AgentMyProperties from '../pages/AgentDashboard/AgentMyProperties';
 import AgentOverview from '../pages/AgentDashboard/AgentOverview';
-import AgentProfile from '../pages/AgentDashboard/AgentProfile';
+import AgentPropertyUpdate from '../pages/AgentDashboard/AgentPropertyUpdate';
 import AllProperties from '../pages/AllProperties';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Home from '../pages/Home';
+import Profile from '../pages/shared/Profile';
 
 const Route = createBrowserRouter([
     {
@@ -53,11 +59,45 @@ const Route = createBrowserRouter([
         },
         {
           path: 'profile',
-          element: <AgentProfile/>
+          element: <Profile/>
         },
         {
           path: 'add',
           element: <AgentAddProperty/>
+        },
+        {
+          path: 'properties',
+          element: <AgentMyProperties/>
+        },
+        {
+          path: 'update/:id',
+          element: <AgentPropertyUpdate/>
+        }
+      ]
+    },
+    {
+      path: '/dashboard/admin',
+      element: <AdminDashboard/>,
+      children: [
+        {
+          path: '',
+          element: <AdminOverview/>
+        },
+        {
+          path: 'users',
+          element: <AdminManageUsers/>
+        },
+        {
+          path: 'reviews',
+          element: <AdminManageReviews/>
+        },
+        {
+          path: 'properties',
+          element: <AdminManageProperties/>
+        },
+        {
+          path: 'profile',
+          element: <Profile/>
         }
       ]
     }

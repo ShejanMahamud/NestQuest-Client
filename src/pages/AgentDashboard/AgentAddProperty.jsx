@@ -31,8 +31,13 @@ const handleAddProperty = async (e) => {
         const agent_name = user?.displayName;
         const agent_photo = user?.photoURL;
         const property_type = e.target.property_type.value;
+        const property_description = description;
+        const property_rooms = e.target.room.value;
+        const property_bathrooms = e.target.bathroom.value;
+        const property_space = e.target.space.value;
 
-        const info =  {property_title,property_image,property_status,property_price_min,property_price_max,property_location,detailed_location,property_advertise,agent_email,agent_name,agent_photo,property_type}
+        const info =  {property_title,property_image,property_status,property_price_min,property_price_max,property_location,detailed_location,property_advertise,agent_email,agent_name,agent_photo,property_type,property_description,property_rooms,property_bathrooms,property_space}
+        // return console.log(info)
         await mutateAsync(info)
         e.target.reset()
     }
@@ -55,7 +60,7 @@ const {mutateAsync} = useMutation({
     <div className="border-l border-[#e4e5e8] w-full min-h-screen px-10 py-10 font-inter">
 <div className="w-full">
   <h1 className="text-xl text-[#18191C] font-medium mb-10">Post A Property</h1>
-  <form  className="w-full grid grid-cols-3 row-auto items-center gap-x-5 gap-y-5">
+  <form onSubmit={handleAddProperty} className="w-full grid grid-cols-3 row-auto items-center gap-x-5 gap-y-5">
     <div className="flex flex-col items-start gap-2 col-span-3">
       <h1 className="text-sm text-[#18191C] mb-2">Property Title</h1>
       <input
@@ -79,9 +84,9 @@ const {mutateAsync} = useMutation({
     <div className="flex flex-col items-start gap-2 col-span-1 ">
       <h1 className="text-sm text-[#18191C] mb-2">Property Image</h1>
         <Upload {...uploadProps} className='px-4 py-3 rounded-lg bg-transparent w-full border border-[#E4E5E8] focus:outline-none'>
-    <button type="button" className="text-gray-400 text-base flex items-center gap-2">
+    {!photo && <button type="button" className="text-gray-400 text-base flex items-center gap-2">
       <UploadOutlined />
-      <span>Click to Upload</span></button>
+      <span>Click to Upload</span></button>}
   </Upload>
 
     </div>
@@ -130,7 +135,58 @@ const {mutateAsync} = useMutation({
         <option value="Sell">Sell</option>
       </select>
     </div>
-
+    <h1 className="text-lg text-[#18191C] font-medium my-5 col-span-3">
+  Property Details 
+    </h1>
+    <div className="flex flex-col items-start gap-2">
+      <h1 className="text-sm text-[#18191C] mb-2">Rooms</h1>
+      <select
+      required
+        name="room"
+        className="px-4 py-3 rounded-lg bg-transparent w-full border border-[#E4E5E8] focus:outline-none"
+      >
+        <option value="select" selected disabled>
+          Select
+        </option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+    </div>
+    <div className="flex flex-col items-start gap-2">
+      <h1 className="text-sm text-[#18191C] mb-2">Bathrooms</h1>
+      <select
+      required
+        name="bathroom"
+        className="px-4 py-3 rounded-lg bg-transparent w-full border border-[#E4E5E8] focus:outline-none"
+      >
+        <option value="select" selected disabled>
+          Select
+        </option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div className="flex flex-col items-start gap-2">
+      <h1 className="text-sm text-[#18191C] mb-2">Property Space</h1>
+      <input
+        type="text"
+        required
+        className="px-4 py-3 rounded-lg bg-transparent w-full border border-[#E4E5E8] focus:outline-none"
+        name="space"
+        placeholder="Ex: 6x8 m²"
+      />
+    </div>
   <h1 className="text-lg text-[#18191C] font-medium my-5 col-span-3">
   Property Description 
     </h1>

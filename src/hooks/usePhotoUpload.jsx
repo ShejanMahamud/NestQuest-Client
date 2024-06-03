@@ -3,7 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 
 const usePhotoUpload = () => {
-    const [photo,setPhoto] = useState('https://i.ibb.co/mynddY1/user.png')
+    const [photo,setPhoto] = useState(null)
     const uploadProps = {
         name: 'file',
         multiple: false,

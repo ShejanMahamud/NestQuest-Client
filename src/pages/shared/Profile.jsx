@@ -8,9 +8,9 @@ import auth from '../../config/firebase.config';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import usePhotoUpload from '../../hooks/usePhotoUpload';
-import useRole from './../../hooks/useRole';
+import useRole from '../../hooks/useRole';
 
-const AgentProfile = () => {
+const Profile = () => {
 const axiosSecure= useAxiosSecure()
 const {user,loading} = useAuth()
 const {role,rolePending} = useRole()
@@ -38,7 +38,7 @@ const handleProfileUpdate = async (e) => {
 
 const {mutateAsync} = useMutation({
 mutationFn: async info => {
-  const {data} = await axiosSecure.patch(`/user/${user?.email}`,userInfo)
+  const {data} = await axiosSecure.patch(`/user/${user?.email}`,info)
   return data
 },
 onSuccess: () => {
@@ -54,9 +54,9 @@ if(rolePending || loading){
 </div>
 }
   return (
-    <div className="w-full flex flex-col items-center justify-center h-full py-28 lg:px-40 md:px-20 px-5 font-dmsans">
+    <div className="w-full flex flex-col items-center justify-center h-full py-28 lg:px-40 md:px-20 px-5">
         <div className="bg-[#1252ae1f] rounded-full w-40 h-40 mx-auto border border-[#1252ae26] mb-5 flex items-center justify-center">
-          <img src={user?.photoURL || 'https://i.ibb.co/L84TwCP/logo.png'} alt="logo.png" className='w-38 h-38 rounded-full object-cover'/>
+          <img src={user?.photoURL || 'https://i.ibb.co/L84TwCP/logo.png'} alt="logo.png" className='w-40 h-40 rounded-full object-cover'/>
         </div>
         <h1 className="text-3xl font-bold mb-2"><span className='text-[#1daeff]'>{user?.displayName || 'User'}</span></h1>
 
@@ -133,4 +133,4 @@ if(rolePending || loading){
   )
 }
 
-export default AgentProfile
+export default Profile
