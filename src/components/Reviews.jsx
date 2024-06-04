@@ -14,7 +14,7 @@ const Reviews = () => {
   const { data: reviews, isPending } = useQuery({
     queryKey: ['reviews'],
     queryFn: async () => {
-      const { data } = await axiosCommon.get('/reviews');
+      const { data } = await axiosCommon.get('/all_reviews');
       return data;
     }
   });
@@ -67,18 +67,30 @@ const Reviews = () => {
       >
         {reviews.map((review, index) => (
           <SwiperSlide key={index}>
-            <div className='bg-white py-5 px-10 rounded-xl shadow-xl flex flex-col items-start gap-5 w-full'>
-              <img src="https://gist.github.com/ShejanMahamud/af31927d9c9847d471c960321f3c3aea/raw/18f6ab0c85a16fcfd8a1b4b7c1c3c0210782ba09/qoute.svg" alt="" />
-              <h1 className='text-sm'>{review.review_description}</h1>
-              <hr className='w-full border border-[#D4D4D4] my-2' />
-              <div className='w-full flex items-center justify-between'>
-                <div className='flex items-center gap-2'>
-                  <img src={review.reviewer_image} alt="" className='w-10 h-10 rounded-full border border-primary' />
-                  <span className='text-sm'>{review.reviewer_name}</span>
-                </div>
-                <Rate disabled defaultValue={2} className='gap-0' />
-              </div>
-            </div>
+            <div className="bg-white py-5 px-5 rounded-xl shadow-lg flex flex-col items-start gap-5 w-full">
+                    <img
+                      src="https://gist.github.com/ShejanMahamud/af31927d9c9847d471c960321f3c3aea/raw/18f6ab0c85a16fcfd8a1b4b7c1c3c0210782ba09/qoute.svg"
+                      alt=""
+                    />
+                    <h1 className="text-sm">{review?.review_title}</h1>
+                    <p>{review?.review_description}</p>
+                    <hr className="w-full border border-[#D4D4D4] my-2" />
+                    <div className="w-full flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <img
+                          src={review?.user_photo}
+                          alt=""
+                          className="w-10 h-10 rounded-full border border-primary object-cover"
+                        />
+                        <span className="text-sm">{review?.user_name}</span>
+                      </div>
+                      <Rate
+                        disabled
+                        defaultValue={review?.review_rating}
+                        className="gap-0"
+                      />
+                    </div>
+                  </div>
           </SwiperSlide>
         ))}
       </Swiper>

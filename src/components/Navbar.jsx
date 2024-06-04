@@ -20,16 +20,16 @@ const handleLogout = async () => {
     }
   }
 
-  if(rolePending){
-    return <div className="flex items-center justify-center space-x-2 w-full min-h-screen">
-    <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
-    <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
-    <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
-  </div>
-  }
+  // if(rolePending){
+  //   return <div className="flex items-center justify-center space-x-2 w-full min-h-screen">
+  //   <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+  //   <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+  //   <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
+  // </div>
+  // }
 
   return (
-    <nav className=' w-full'>
+    <nav className='relative z-50 w-full'>
         <div className='bg-primary text-white py-3 w-full px-5 lg:flex hidden items-center justify-between lg:text-sm text-xs'>
             <div className='flex items-center gap-2'>
                 <img src="https://gist.github.com/ShejanMahamud/ff6c6681f4619b08e037eaf64262e9c6/raw/e59587df1968f18d9103ff52f6e989e344f2c457/location.svg" alt="" />

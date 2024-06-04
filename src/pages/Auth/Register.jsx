@@ -49,7 +49,7 @@ const Register = () => {
      const res = await emailPasswordRegister(email, password);
       await updateProfile(auth.currentUser, {
         displayName: name,
-        photoURL: profilePhoto,
+        photoURL: photo,
       });
       setUser({ ...res?.user, photoURL: photo, displayName: name })
 

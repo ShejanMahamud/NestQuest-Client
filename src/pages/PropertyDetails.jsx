@@ -29,7 +29,7 @@ const PropertyDetails = () => {
     },
   });
 
-  const { data: reviews, reviewsPending } = useQuery({
+  const { data: reviews, reviewsPending,refetch } = useQuery({
     queryKey: ["review_property", id],
     queryFn: async () => {
       const { data } = await axiosCommon.get(`/reviews/${id}`);
@@ -56,15 +56,37 @@ const PropertyDetails = () => {
     }
   };
 
+  const handleWishlist = async () => {
+    try{
+      const {_id, ...rest} = property
+      await wishlistAsync({...rest,property_id: _id,user_email: user?.email})
+    }
+    catch(error){
+      toast.error('Something Went Wrong')
+    }
+  }
+
   const { mutateAsync: reviewAsync } = useMutation({
     mutationFn: async (review) => {
       const { data } = await axiosCommon.post(`/reviews`, review);
       return data;
     },
     onSuccess: () => {
+      refetch()
+      setReviewModal(false)
       toast.success("Review Added Successfully");
     },
   });
+
+  const {mutateAsync: wishlistAsync} = useMutation({
+    mutationFn: async (wishlist) => {
+      const {data} = axiosCommon.post(`/wishlist`,wishlist)
+      return data
+    },
+    onSuccess: () => {
+      toast.success('Successfully Added WishList')
+    }
+  })
 
   if (isPending || reviewsPending) {
     return (
@@ -192,7 +214,7 @@ const PropertyDetails = () => {
           <div className="bg-white shadow-lg rounded-lg p-2 w-full">
             <Map location={"Broadway 10012, New York, NY, USA"} />
           </div>
-          <button className="w-full bg-primary text-white font-medium rounded-lg py-3">
+          <button onClick={handleWishlist} className="w-full bg-primary text-white font-medium rounded-lg py-3">
             Add To Wishlist
           </button>
         </div>
