@@ -27,7 +27,7 @@ const Map = ({location}) => {
 
         fetchCoordinates();
     }, [location]);
-console.log(position)
+
   return (
     <MapContainer center={position || [51.505, -0.09]} zoom={13} scrollWheelZoom={false} style={{ height: '300px', width: '100%' }}>
       <TileLayer
