@@ -9,7 +9,7 @@ const axiosSecure = useAxiosSecure()
 const {data: properties,isPending,refetch} = useQuery({
   queryKey: ['admin_properties'],
   queryFn: async () => {
-    const {data} = await axiosSecure.get('/properties')
+    const {data} = await axiosSecure.get('/all_properties')
     return data
   }
 })

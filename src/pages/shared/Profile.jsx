@@ -12,7 +12,7 @@ import useRole from '../../hooks/useRole';
 
 const Profile = () => {
 const axiosSecure= useAxiosSecure()
-const {user,loading} = useAuth()
+const {user,loading,setUser} = useAuth()
 const {role,rolePending} = useRole()
 const [openModal, setOpenModal] = useState(false)
 const {photo,uploadProps} = usePhotoUpload()
@@ -29,7 +29,8 @@ const handleProfileUpdate = async (e) => {
       displayName: userInfo?.name || user?.displayName,
       photoURL: userInfo.photo || user?.photoURL
     })
-    await mutateAsync(user)
+    setUser({ photoURL: userInfo.photo || user?.photoURL, displayName: userInfo?.name || user?.displayName })
+    await mutateAsync(userInfo)
   }
   catch(error){
     toast.error('Something Went Wrong!')
@@ -38,6 +39,7 @@ const handleProfileUpdate = async (e) => {
 
 const {mutateAsync} = useMutation({
 mutationFn: async info => {
+  console.log(info)
   const {data} = await axiosSecure.patch(`/user/${user?.email}`,info)
   return data
 },

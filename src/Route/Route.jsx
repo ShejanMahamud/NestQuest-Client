@@ -16,6 +16,7 @@ import AllProperties from '../pages/AllProperties';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Home from '../pages/Home';
+import PropertyDetails from '../pages/PropertyDetails';
 import Profile from '../pages/shared/Profile';
 
 const Route = createBrowserRouter([
@@ -38,6 +39,10 @@ const Route = createBrowserRouter([
         {
           path: '/properties',
           element: <AllProperties/>
+        },
+        {
+          path: '/details/:id',
+          element: <PropertyDetails/>
         }
       ]
     },
