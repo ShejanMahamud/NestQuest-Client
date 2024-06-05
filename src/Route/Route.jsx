@@ -12,13 +12,17 @@ import AgentAddProperty from '../pages/AgentDashboard/AgentAddProperty';
 import AgentMyProperties from '../pages/AgentDashboard/AgentMyProperties';
 import AgentOverview from '../pages/AgentDashboard/AgentOverview';
 import AgentPropertyUpdate from '../pages/AgentDashboard/AgentPropertyUpdate';
+import AgentRequestedProperties from '../pages/AgentDashboard/AgentRequestedProperties';
+import AgentSoldProperties from '../pages/AgentDashboard/AgentSoldProperties';
 import AllProperties from '../pages/AllProperties';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Home from '../pages/Home';
 import PropertyDetails from '../pages/PropertyDetails';
+import CheckoutForm from '../pages/UserDashboard/CheckoutForm';
 import UserBoughtProperties from '../pages/UserDashboard/UserBoughtProperties';
 import UserMakeOffer from '../pages/UserDashboard/UserMakeOffer';
+import UserMyReviews from '../pages/UserDashboard/UserMyReviews';
 import UserWishlist from '../pages/UserDashboard/UserWishlist';
 import Profile from '../pages/shared/Profile';
 
@@ -68,12 +72,16 @@ const Route = createBrowserRouter([
         {
           path: 'bought',
           element: <UserBoughtProperties/>
+        },
+        {
+          path: 'reviews',
+          element: <UserMyReviews/>
+        },
+        {
+          path: 'pay/:id',
+          element: <CheckoutForm/>
         }
       ]
-    },
-    {
-      path: '/dashboard/admin',
-      element: <AdminDashboard/>
     },
     {
       path: '/dashboard/agent',
@@ -98,6 +106,14 @@ const Route = createBrowserRouter([
         {
           path: 'update/:id',
           element: <AgentPropertyUpdate/>
+        },
+        {
+          path: 'requested',
+          element: <AgentRequestedProperties/>
+        },
+        {
+          path: 'sold',
+          element: <AgentSoldProperties/>
         }
       ]
     },

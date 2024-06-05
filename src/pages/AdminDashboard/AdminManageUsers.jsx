@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import React from "react";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const AdminManageUsers = () => {
@@ -20,6 +21,26 @@ const AdminManageUsers = () => {
 
   const handleUpdateStatus = async (action, email) => {
     try {
+      if (action === "Delete"){
+       return Swal.fire({
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!"
+        }).then(async(result) => {
+          if (result.isConfirmed) {
+            await mutateAsync({ action, email });
+            Swal.fire({
+              title: "Deleted!",
+              text: "User has been deleted.",
+              icon: "success"
+            });
+          }
+        });
+      }
       await mutateAsync({ action, email });
     } catch (error) {
       toast.error("Something Went Wrong");

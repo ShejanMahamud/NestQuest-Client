@@ -81,10 +81,10 @@ const AgentDashboard = () => {
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "bg-[#E7F0FA] text-primary w-full flex items-center gap-3 py-3 px-3"
+                  ? "bg-[#030303] text-white rounded-lg w-full flex items-center gap-3 py-3 px-3"
                   : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
               }
-              to={"/dashboard/agent/sold_properties"}
+              to={"/dashboard/agent/sold"}
             >
               <BsBuildingCheck className="text-xl" />
               <span className="text-base">Sold Properties</span>
@@ -92,10 +92,10 @@ const AgentDashboard = () => {
             <NavLink
               className={({ isActive }) =>
                 isActive
-                  ? "bg-[#E7F0FA] text-primary w-full flex items-center gap-3 py-3 px-3"
+                  ? "bg-[#030303] text-white rounded-lg w-full flex items-center gap-3 py-3 px-3"
                   : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
               }
-              to={"/dashboard/agent/requested_properties"}
+              to={"/dashboard/agent/requested"}
             >
               <BsBuildingExclamation  className="text-xl" />
               <span className="text-base">Requested Properties</span>

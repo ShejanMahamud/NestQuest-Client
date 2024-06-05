@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { Modal, Rate } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import moment from 'moment';
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { IoBedOutline, IoLocationOutline } from "react-icons/io5";
@@ -13,7 +14,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import Map from "../Utils/Map";
 import useAuth from "../hooks/useAuth";
 import useAxiosCommon from "../hooks/useAxiosCommon";
-
 const PropertyDetails = () => {
   const [rating, SetRating] = useState(0);
   const [reviewModal, setReviewModal] = useState(false);
@@ -49,6 +49,7 @@ const PropertyDetails = () => {
         review_rating,
         user_email: user?.email,
         property_id: id,
+        review_time: moment().format('lll')
       };
       await reviewAsync(review);
     } catch (error) {

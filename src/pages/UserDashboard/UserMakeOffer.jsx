@@ -34,8 +34,8 @@ const UserMakeOffer = () => {
   };
 
   const handleMakeOffer = async (e) => {
-    e.preventDefault()
     try {
+        e.preventDefault()
       const buying_date = moment(e.target.date.value).format("MMMM D, YYYY");
       const offer_price = e.target.offer_price.value;
       const query = {
@@ -43,9 +43,11 @@ const UserMakeOffer = () => {
         buyer_email: user?.email,
         buyer_name: user?.displayName,
         agent_email: property?.agent_email,
+        agent_name: property?.agent_name,
         offer_price,
         buying_date,
         property_title: property?.property_title,
+        property_image: property?.property_image,
         property_location: property?.property_location,
         detailed_location: property?.detailed_location,
         status: 'Pending'

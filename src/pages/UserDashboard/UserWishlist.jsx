@@ -1,10 +1,12 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { Tooltip } from "antd";
 import React from "react";
-import { IoBedOutline, IoCheckmark, IoClose, IoLocationSharp, IoTimeOutline } from "react-icons/io5";
+import toast from "react-hot-toast";
+import { IoBedOutline, IoCheckmark, IoClose, IoLocationSharp, IoTimeOutline, IoWarningOutline } from "react-icons/io5";
 import { MdOutlineLocalOffer } from "react-icons/md";
 import { PiBathtub } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
@@ -12,13 +14,49 @@ const UserWishlist = () => {
 const axiosSecure = useAxiosSecure()
 const {user} = useAuth()
 const navigate = useNavigate()
-const {data:properties,isPending} = useQuery({
+const {data:properties,isPending,refetch} = useQuery({
     queryKey: ['wishlist',user?.email],
     queryFn: async () => {
         const {data} = await axiosSecure.get(`/wishlist/${user?.email}`)
         return data
     }
 }) 
+
+const {mutateAsync} = useMutation({
+  mutationFn: async id => {
+    const {data} = await axiosSecure.delete(`/wishlist/${id}`)
+    return data
+  },
+  onSuccess: () => {
+    refetch()
+  }
+})
+
+const handleDeleteWishlist = async (id) => {
+  try{
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        await mutateAsync(id)
+        Swal.fire({
+          title: "Deleted!",
+          text: "Poperty has been deleted.",
+          icon: "success"
+        });
+      }
+    });
+  }
+  catch(error){
+    toast.error('Something Went Wrong!')
+  }
+}
 
   if (isPending) {
     return (
@@ -31,7 +69,7 @@ const {data:properties,isPending} = useQuery({
   }
 
   return (
-    <div className="w-full p-10 ">
+    <div className="w-full p-10 min-h-screen">
       <h1 className="text-2xl text-[#18191C] font-medium mb-10">
         My Wishlist
       </h1>
@@ -55,9 +93,6 @@ const {data:properties,isPending} = useQuery({
                 <h1 className="text-xl text-primary font-medium">
                   ${property?.property_price_min} - $
                   {property?.property_price_max}{" "}
-                  {/* <span className="text-[#000929] opacity-50 text-base font-normal">
-                    /Month
-                  </span> */}
                 </h1>
                 <div className="flex items-center gap-2">
                   <Tooltip title="Make Offer">
@@ -66,7 +101,7 @@ const {data:properties,isPending} = useQuery({
                     </button>
                   </Tooltip>
                   <Tooltip title='Remove Property'>
-                  <button className="border border-red-500 rounded-full p-2 text-2xl text-red-500 font-bold">
+                  <button onClick={()=>handleDeleteWishlist(property?._id)} className="border border-red-500 rounded-full p-2 text-2xl text-red-500 font-bold">
                       <IoClose />
                     </button>
                   </Tooltip>
@@ -165,6 +200,13 @@ const {data:properties,isPending} = useQuery({
             </div>
           </div>
         ))}
+        {
+                    properties && properties.length <= 0 && <div className='text-gray-400 w-full flex items-center justify-center min-h-screen flex-col col-span-3'>
+                    <IoWarningOutline className='text-9xl'/> 
+                    <h1 className='text-xl'>No Properties Found!</h1>
+                  </div>
+                }
+        
       </div>
     </div>
   );
