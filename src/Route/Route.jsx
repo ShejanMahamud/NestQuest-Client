@@ -17,6 +17,9 @@ import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Home from '../pages/Home';
 import PropertyDetails from '../pages/PropertyDetails';
+import UserBoughtProperties from '../pages/UserDashboard/UserBoughtProperties';
+import UserMakeOffer from '../pages/UserDashboard/UserMakeOffer';
+import UserWishlist from '../pages/UserDashboard/UserWishlist';
 import Profile from '../pages/shared/Profile';
 
 const Route = createBrowserRouter([
@@ -53,6 +56,18 @@ const Route = createBrowserRouter([
         {
           path: 'profile',
           element: <Profile/>
+        },
+        {
+          path: 'wishlist',
+          element: <UserWishlist/>
+        },
+        {
+          path: 'make_offer/:id',
+          element: <UserMakeOffer/>
+        },
+        {
+          path: 'bought',
+          element: <UserBoughtProperties/>
         }
       ]
     },

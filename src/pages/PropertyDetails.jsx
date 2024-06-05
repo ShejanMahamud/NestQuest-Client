@@ -58,7 +58,7 @@ const PropertyDetails = () => {
 
   const handleWishlist = async () => {
     try{
-      const {_id, ...rest} = property
+      const {_id,property_advertise,property_type,property_description,property_bathrooms,property_rooms,property_space, ...rest} = property
       await wishlistAsync({...rest,property_id: _id,user_email: user?.email})
     }
     catch(error){
