@@ -3,6 +3,7 @@ import { Skeleton } from 'antd'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { IoCheckmark, IoClose, IoTimeOutline } from 'react-icons/io5'
+import { LuDollarSign } from 'react-icons/lu'
 import useAuth from '../../hooks/useAuth'
 import useAxiosSecure from '../../hooks/useAxiosSecure'
 
@@ -19,7 +20,11 @@ const AgentRequestedProperties = () => {
   })
 
   const {mutateAsync} = useMutation({
-    mutationFn: async ({id,status}) => {
+    mutationFn: async ({id,status,property_id}) => {
+      if(status === 'Verified'){
+        const {data} = await axiosSecure.patch(`/offered/${id}`,{status,property_id})
+        return data
+      }
       const {data} = await axiosSecure.patch(`/offered/${id}`,{status})
       return data
     },
@@ -29,9 +34,9 @@ const AgentRequestedProperties = () => {
     }
   })
 
-  const handleChangeStatus = async (id,status) => {
+  const handleChangeStatus = async (id,status,property_id) => {
     try{
-      await mutateAsync({id,status})
+      await mutateAsync({id,status,property_id})
     }
     catch(error){
       toast.error('Something Went Wrong!')
@@ -123,11 +128,17 @@ const AgentRequestedProperties = () => {
                   <span>Rejected</span>
                 </div>
 }
+              {
+                property?.status === 'Bought' && <div className="flex items-center gap-1 text-red-500">
+                  <LuDollarSign className="text-xl"/> 
+                  <span>Sold</span>
+                </div>
+}
               </td>
                   <th>
                     <div className='w-full flex items-center gap-2'>
-                    <button onClick={()=>handleChangeStatus(property?._id,'Verified')} className="bg-green-500 text-white font-medium text-xs px-2 py-1 rounded-md">Accept</button>
-                    <button onClick={()=>handleChangeStatus(property?._id,'Rejected')} className="bg-red-500 text-white font-medium text-xs px-2 py-1 rounded-md">Reject</button>
+                    <button disabled={property?.status === 'Bought'} onClick={()=>handleChangeStatus(property?._id,'Verified',property?.property_id)} className="bg-green-500 text-white font-medium text-xs px-2 py-1 rounded-md">Accept</button>
+                    <button disabled={property?.status === 'Bought'} onClick={()=>handleChangeStatus(property?._id,'Rejected')} className="bg-red-500 text-white font-medium text-xs px-2 py-1 rounded-md">Reject</button>
                     </div>
                   </th>
                 </tr>
