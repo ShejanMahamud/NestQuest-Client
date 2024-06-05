@@ -93,6 +93,9 @@ const UserBoughtProperties = () => {
               {
                 property?.status === 'Verified' && <button onClick={()=>navigate(`/dashboard/user/pay/${property?._id}`)} className="bg-primary text-white font-medium px-4 py-2 rounded-md">Pay Now</button>
               }
+              {
+                property?.status === 'Bought' && <span className="text-sm text-green-500 font-medium"><span className="text-gray-400">Tran ID:</span> {property?.tran_id}</span>
+              }
             </div>
           </div>
         ))}

@@ -19,7 +19,7 @@ import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Home from '../pages/Home';
 import PropertyDetails from '../pages/PropertyDetails';
-import CheckoutForm from '../pages/UserDashboard/CheckoutForm';
+import Payment from '../pages/UserDashboard/Payment';
 import UserBoughtProperties from '../pages/UserDashboard/UserBoughtProperties';
 import UserMakeOffer from '../pages/UserDashboard/UserMakeOffer';
 import UserMyReviews from '../pages/UserDashboard/UserMyReviews';
@@ -79,7 +79,7 @@ const Route = createBrowserRouter([
         },
         {
           path: 'pay/:id',
-          element: <CheckoutForm/>
+          element: <Payment/>
         }
       ]
     },
