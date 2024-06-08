@@ -69,7 +69,7 @@ const CheckoutForm = ({clientSecret,offeredProperty}) => {
           },
         }}
       />
-      <button type="submit" disabled={!stripe} className="w-full bg-primary text-white font-medium py-3 rounded-lg mt-5 uppercase flex items-center gap-2 justify-center">
+      <button type="submit" disabled={!stripe || loading} className="w-full bg-primary text-white font-medium py-3 rounded-lg mt-5 uppercase flex items-center gap-2 justify-center">
         
 {
   loading ? <div className="flex items-center justify-center space-x-2 py-2">

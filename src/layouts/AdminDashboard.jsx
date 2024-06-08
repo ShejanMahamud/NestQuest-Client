@@ -3,7 +3,7 @@ import { BsBuilding } from "react-icons/bs";
 import { IoArrowBackOutline } from "react-icons/io5";
 import { LuUserCircle2, LuUsers } from "react-icons/lu";
 import { MdOutlineReviews } from 'react-icons/md';
-import { RiStackFill } from "react-icons/ri";
+import { RiAdvertisementLine, RiStackFill } from "react-icons/ri";
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
@@ -89,6 +89,17 @@ const AdminDashboard = () => {
             >
               <MdOutlineReviews className="text-xl" />
               <span className="text-base">Manage Reviews</span>
+            </NavLink>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? "bg-[#030303] text-white rounded-lg w-full flex items-center gap-3 py-3 px-3"
+                  : "w-full flex items-center gap-3 py-3 px-3 text-[#767F8C]"
+              }
+              to={"/dashboard/admin/advertisement"}
+            >
+              <RiAdvertisementLine className="text-xl" />
+              <span className="text-base">Advertisement</span>
             </NavLink>
 
           </div>

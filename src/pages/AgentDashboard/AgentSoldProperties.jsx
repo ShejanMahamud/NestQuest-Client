@@ -7,7 +7,7 @@ const AgentSoldProperties = () => {
 const {user} = useAuth()
 const axiosSecure = useAxiosSecure();
 
-const {data:properties,isPending} = useQuery({
+const {data,isPending} = useQuery({
   queryKey: ['sold_properties',user?.email],
   queryFn: async () => {
     const {data} = await axiosSecure.get(`/solds/${user?.email}`)
@@ -44,7 +44,7 @@ if (isPending) {
     </thead>
     <tbody>
       {
-        properties && properties.map(property => (
+        data[0]?.properties && data[0]?.properties.map(property => (
           <tr key={property?._id}>
           <th>{property?.property_title}</th>
           <td>{property?.detailed_location}</td>
@@ -54,6 +54,26 @@ if (isPending) {
         </tr>
         ))
       }
+    </tbody>
+  </table>
+</div>
+<h1 className="text-2xl text-[#18191C] font-medium my-10">
+        Total Sold Amount
+      </h1>
+      <div className="overflow-x-auto">
+  <table className="table">
+    {/* head */}
+    <thead>
+      <tr>
+        <th>Action</th>
+        <th>Revenue</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+          <th>Total Revenue</th>
+          <td>{data[0]?.sold_amount}</td>
+        </tr>
     </tbody>
   </table>
 </div>

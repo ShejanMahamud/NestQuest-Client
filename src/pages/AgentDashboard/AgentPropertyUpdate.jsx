@@ -27,8 +27,8 @@ const handlePropertyUpdate = async (e) => {
     try{
         const property_title = e.target.title.value;
         const property_image = photo;
-        const property_price_min = e.target.min_price.value;
-        const property_price_max = e.target.max_price.value;
+        const property_price_min = parseInt(e.target.min_price.value);
+        const property_price_max = parseInt(e.target.max_price.value);
         const property_location = e.target.location.value;
         const detailed_location = e.target.detailed_location.value;
         const info = {property_title,property_price_min,property_price_max,property_location,detailed_location, ...(photo && {photo})}

@@ -37,7 +37,7 @@ const UserMakeOffer = () => {
     try {
         e.preventDefault()
       const buying_date = moment(e.target.date.value).format("MMMM D, YYYY");
-      const offer_price = e.target.offer_price.value;
+      const offer_price = parseInt(e.target.offer_price.value);
       const query = {
         property_id: id,
         buyer_email: user?.email,

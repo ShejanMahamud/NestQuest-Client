@@ -4,6 +4,7 @@ import AdminDashboard from '../layouts/AdminDashboard';
 import AgentDashboard from '../layouts/AgentDashboard';
 import Root from '../layouts/Root';
 import UserDashboard from '../layouts/UserDashboard';
+import AdminAdvertisement from '../pages/AdminDashboard/AdminAdvertisement';
 import AdminManageProperties from '../pages/AdminDashboard/AdminManageProperties';
 import AdminManageReviews from '../pages/AdminDashboard/AdminManageReviews';
 import AdminManageUsers from '../pages/AdminDashboard/AdminManageUsers';
@@ -18,6 +19,7 @@ import AllProperties from '../pages/AllProperties';
 import Login from '../pages/Auth/Login';
 import Register from '../pages/Auth/Register';
 import Home from '../pages/Home';
+import NotFound from '../pages/NotFound';
 import PropertyDetails from '../pages/PropertyDetails';
 import Payment from '../pages/UserDashboard/Payment';
 import UserBoughtProperties from '../pages/UserDashboard/UserBoughtProperties';
@@ -51,7 +53,8 @@ const Route = createBrowserRouter([
           path: '/details/:id',
           element: <PropertyDetails/>
         }
-      ]
+      ],
+      errorElement: <NotFound/>
     },
     {
       path: '/dashboard/user',
@@ -81,7 +84,8 @@ const Route = createBrowserRouter([
           path: 'pay/:id',
           element: <Payment/>
         }
-      ]
+      ],
+      errorElement: <NotFound/>
     },
     {
       path: '/dashboard/agent',
@@ -115,7 +119,8 @@ const Route = createBrowserRouter([
           path: 'sold',
           element: <AgentSoldProperties/>
         }
-      ]
+      ],
+      errorElement: <NotFound/>
     },
     {
       path: '/dashboard/admin',
@@ -140,8 +145,13 @@ const Route = createBrowserRouter([
         {
           path: 'profile',
           element: <Profile/>
+        },
+        {
+          path: 'advertisement',
+          element: <AdminAdvertisement/>
         }
-      ]
+      ],
+      errorElement: <NotFound/>
     }
   ]);
 

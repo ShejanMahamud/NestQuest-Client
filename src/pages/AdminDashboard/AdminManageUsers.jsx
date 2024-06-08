@@ -72,14 +72,6 @@ const AdminManageUsers = () => {
     },
   });
 
-  // const handleDeleteUser = async (id) => {
-  //   try{
-  //     const
-  //   }
-  //   catch(error){
-  //     toast.error('Something Went Wrong')
-  //   }
-  // }
 
   if (isPending) {
     return (
