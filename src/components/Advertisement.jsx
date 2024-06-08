@@ -3,18 +3,20 @@ import React from "react";
 import { GoVerified } from "react-icons/go";
 import { IoLocationSharp } from "react-icons/io5";
 import { LuDollarSign } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
 import 'swiper/css';
 import 'swiper/css/bundle';
 import { Navigation } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import useAxiosCommon from "../hooks/useAxiosCommon";
 const Advertisement = () => {
+  const navigate = useNavigate()
 const axiosCommon = useAxiosCommon()
 
 const {data:advertises,isPending} = useQuery({
     queryKey: ['advertises'],
     queryFn: async () => {
-        const {data} = await axiosCommon.get('/advertises')
+        const {data} = await axiosCommon.get('/all_properties?advertise=true')
         return data
     }
 })
@@ -77,14 +79,14 @@ if(isPending){
         </div>
         <div className="bg-transparent backdrop-blur-sm rounded-md inline-flex items-center gap-1 px-3 py-2 border border-white border-opacity-30 text-xs text-white absolute top-5 left-5">
           <GoVerified className="text-base"/>
-          <h1>{advertise?.advertise_status}</h1>
+          <h1>{advertise?.property_status}</h1>
         </div>
         <div className="bg-transparent backdrop-blur-sm rounded-md inline-flex items-center gap-1 px-3 py-2 border border-white border-opacity-30 text-xs text-white absolute bottom-5 left-5">
           <LuDollarSign className="text-base"/>
           <h1>${advertise?.property_price_min} - ${advertise?.property_price_max}</h1>
         </div>
         <h1 className="absolute right-5 bottom-5 text-white"></h1>
-        <button className="bg-primary px-2 py-1 rounded-md text-white font-medium flex items-center gap-3 text-xs absolute bottom-5 right-5">
+        <button onClick={()=>navigate(`/details/${advertise?._id}`)} className="bg-primary px-2 py-1 rounded-md text-white font-medium flex items-center gap-3 text-xs absolute bottom-5 right-5">
           <span>View Details</span>
           <img
             src="https://gist.github.com/ShejanMahamud/3e1531c623443a8f5df5f64e60328b72/raw/406db90cd80314df603b5da7cbe504acfb194eaf/arrow.svg"
