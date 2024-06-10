@@ -118,10 +118,6 @@ const AdminManageUsers = () => {
                   </td>
                   <td>
                     {user?.role}
-                    <br />
-                    <span className="badge badge-ghost badge-sm">
-                      {user?.agent_email}
-                    </span>
                   </td>
                   <th>
                     <div className="flex items-center gap-3 flex-wrap">

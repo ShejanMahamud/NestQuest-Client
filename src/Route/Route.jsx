@@ -28,6 +28,9 @@ import UserMakeOffer from '../pages/UserDashboard/UserMakeOffer';
 import UserMyReviews from '../pages/UserDashboard/UserMyReviews';
 import UserWishlist from '../pages/UserDashboard/UserWishlist';
 import Profile from '../pages/shared/Profile';
+import AdminRoute from './AdminRoute';
+import AgentRoute from './AgentRoute';
+import PrivateRoute from './PrivateRoute';
 
 const Route = createBrowserRouter([
     {
@@ -48,18 +51,18 @@ const Route = createBrowserRouter([
         },
         {
           path: '/properties',
-          element: <AllProperties/>
+          element: <PrivateRoute><AllProperties/></PrivateRoute>
         },
         {
           path: '/details/:id',
-          element: <PropertyDetails/>
+          element: <PrivateRoute><PropertyDetails/></PrivateRoute>
         }
       ],
       errorElement: <NotFound/>
     },
     {
       path: '/dashboard/user',
-      element: <UserDashboard/>,
+      element: <PrivateRoute><UserDashboard/></PrivateRoute>,
       children: [
         {
           path: 'profile',
@@ -90,7 +93,7 @@ const Route = createBrowserRouter([
     },
     {
       path: '/dashboard/agent',
-      element: <AgentDashboard/>,
+      element: <AgentRoute><AgentDashboard/></AgentRoute>,
       children: [
         {
           path: '',
@@ -125,7 +128,7 @@ const Route = createBrowserRouter([
     },
     {
       path: '/dashboard/admin',
-      element: <AdminDashboard/>,
+      element: <AdminRoute><AdminDashboard/></AdminRoute>,
       children: [
         {
           path: '',

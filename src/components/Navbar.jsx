@@ -9,7 +9,9 @@ const navigate = useNavigate()
 const [isOpen, setIsOpen] = useState(false);
 const {user,logOut} = useAuth()
 const [menuOpen,setMenuOpen] = useState(false)
-const {role,rolePending} = useRole()
+const {role,rolePending,roleRefetch} = useRole()
+const userRole = rolePending ? 'user' : role || 'user';
+
 const handleLogout = async () => {
     try{
       await logOut()
@@ -19,7 +21,6 @@ const handleLogout = async () => {
       toast.error('Something Went Wrong!')
     }
   }
-
   // if(rolePending){
   //   return <div className="flex items-center justify-center space-x-2 w-full min-h-screen">
   //   <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>
@@ -80,9 +81,9 @@ const handleLogout = async () => {
                 : "no-underline"
             }
             to={
-              role === 'Admin'
+              userRole === 'Admin'
                 ? '/dashboard/admin'
-                : role === 'Agent'
+                : userRole === 'Agent'
                 ? '/dashboard/agent'
                 : '/dashboard/user'
             }
@@ -124,9 +125,9 @@ const handleLogout = async () => {
                 : "no-underline"
             }
             to={
-              role === 'Admin'
+              userRole === 'Admin'
                 ? '/dashboard/admin'
-                : role === 'Agent'
+                : userRole === 'Agent'
                 ? '/dashboard/agent'
                 : '/dashboard/user'
             }

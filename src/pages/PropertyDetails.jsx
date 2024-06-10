@@ -31,7 +31,7 @@ const PropertyDetails = () => {
   });
 
   const { data: reviews, reviewsPending,refetch } = useQuery({
-    queryKey: ["review_property", id],
+    queryKey: ["review_propeties_id", id],
     queryFn: async () => {
       const { data } = await axiosCommon.get(`/reviews/${id}`);
       return data[0];

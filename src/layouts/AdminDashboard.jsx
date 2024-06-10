@@ -35,7 +35,7 @@ const AdminDashboard = () => {
           {sidebarOpen ? <IoCloseOutline/>  : <IoMenuOutline /> }
         </button>
 
-        <div className={`fixed md:static top-0 left-0 w-full md:w-1/5 h-full bg-[#181818] py-10 px-5 md:px-3 lg:px-5 overflow-y-auto transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 z-20`}>
+        <div className={`fixed md:static top-0 left-0 w-full h-full bg-[#181818] py-10 px-5 md:px-3 lg:px-5 overflow-y-auto transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 z-20`}>
           <div className="flex flex-col w-full items-center gap-2 mb-5">
             <img src={user?.photoURL} alt="" className="w-20 h-20 rounded-full border border-primary object-cover" />
             <h1 className="text-xl text-white font-medium">{user?.displayName}</h1>
@@ -136,7 +136,7 @@ const AdminDashboard = () => {
             </button>
           </div>
         </div>
-        <div className="col-start-2 col-span-1 h-full md:ml-[20%] z-10">
+        <div className="col-start-2 col-span-1 h-full overflow-y-auto z-10">
           <Outlet />
           <div className="w-full border-t border-[#E4E5E8] flex items-center justify-center py-5">
             <p className="text-[#767F8C] text-sm">@ {currentYear} NestQuest - All rights Reserved</p>
