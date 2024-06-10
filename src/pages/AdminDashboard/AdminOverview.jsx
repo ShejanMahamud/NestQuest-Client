@@ -75,7 +75,7 @@ const AdminOverview = () => {
         </div>
 
         <div className='w-full flex items-center justify-between mt-10'>
-          <h1 className='text-[#18191C] font-medium'>Recently Bought</h1>
+          <h1 className='text-[#18191C] font-medium'>Recently Reports</h1>
           <button onClick={()=>navigate('/dashboard/admin/reports')} className='px-3 py-2 rounded-sm text-[#767F8C] bg-white font-medium flex items-center text-base gap-1'>
               <span>View All</span>
             <img src="https://gist.github.com/ShejanMahamud/1399583e909469763ef617ecfacbda0a/raw/64c4e6b2aac0185c3dfd4d8831585d40b6ea923a/arrow.svg" alt="" />
