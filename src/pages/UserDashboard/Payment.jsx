@@ -41,7 +41,7 @@ if (isPending) {
   return (
     <div className="w-full min-h-screen p-10 flex flex-col items-center justify-center">
          <h1 className="text-2xl text-[#18191C] font-medium mb-10">Pay Property</h1>
-                <div className="w-full grid grid-cols-2 row-auto items-center gap-20">
+                <div className="w-full grid lg:grid-cols-2 grid-cols-1 row-auto items-center gap-20">
                 <div className="w-full">
                 <Elements stripe={stripePromise}>
                     <CheckoutForm clientSecret={clientSecret} offeredProperty={id}/>

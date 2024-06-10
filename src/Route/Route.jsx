@@ -26,6 +26,7 @@ import Payment from '../pages/UserDashboard/Payment';
 import UserBoughtProperties from '../pages/UserDashboard/UserBoughtProperties';
 import UserMakeOffer from '../pages/UserDashboard/UserMakeOffer';
 import UserMyReviews from '../pages/UserDashboard/UserMyReviews';
+import UserOverview from '../pages/UserDashboard/UserOverview';
 import UserWishlist from '../pages/UserDashboard/UserWishlist';
 import Profile from '../pages/shared/Profile';
 import AdminRoute from './AdminRoute';
@@ -64,6 +65,10 @@ const Route = createBrowserRouter([
       path: '/dashboard/user',
       element: <PrivateRoute><UserDashboard/></PrivateRoute>,
       children: [
+        {
+          path: '',
+          element: <UserOverview/>
+        },
         {
           path: 'profile',
           element: <Profile/>

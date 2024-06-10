@@ -1,18 +1,20 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 
-const CheckoutForm = ({clientSecret,offeredProperty}) => {
+const CheckoutForm = ({ clientSecret, offeredProperty }) => {
   const stripe = useStripe();
-  const [loading,setLoading] = useState(false)
-  const {user} = useAuth()
+  const navigate= useNavigate()
+  const [loading, setLoading] = useState(false);
+  const { user } = useAuth();
   const elements = useElements();
-  const axiosSecure = useAxiosSecure()
+  const axiosSecure = useAxiosSecure();
 
   const handleSubmit = async (event) => {
-    setLoading(true)
+    setLoading(true);
     event.preventDefault();
 
     if (!stripe || !elements) {
@@ -27,28 +29,32 @@ const CheckoutForm = ({clientSecret,offeredProperty}) => {
       type: "card",
       card,
     });
-    const {paymentIntent,error} = await stripe.confirmCardPayment(clientSecret,{
-      payment_method: {
-        card: card,
-        billing_details:{
-          name:user?.displayName,
-          email: user?.email
-        }
+    const { paymentIntent, error } = await stripe.confirmCardPayment(
+      clientSecret,
+      {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: user?.displayName,
+            email: user?.email,
+          },
+        },
       }
-    })
-    if(paymentIntent.status === 'succeeded'){
-
-      const {data} = await axiosSecure.patch(`/offered/${offeredProperty}`,{
+    );
+    if (paymentIntent.status === "succeeded") {
+      const { data } = await axiosSecure.patch(`/offered/${offeredProperty}`, {
         status: "Bought",
         tran_id: paymentIntent.id,
-      })
-      if(data.success){
-        toast.success('Payment Success');
-        event.target.reset()
-        setLoading(false)
+      });
+      if (data.success) {
+        toast.success("Payment Success");
+        setTimeout(()=>{
+          navigate('/dashboard/user/bought')
+        },1000)
+        event.target.reset();
+        setLoading(false);
       }
     }
-
   };
 
   return (
@@ -69,17 +75,20 @@ const CheckoutForm = ({clientSecret,offeredProperty}) => {
           },
         }}
       />
-      <button type="submit" disabled={!stripe || loading} className="w-full bg-primary text-white font-medium py-3 rounded-lg mt-5 uppercase flex items-center gap-2 justify-center">
-        
-{
-  loading ? <div className="flex items-center justify-center space-x-2 py-2">
-	<div className="w-3 h-3 rounded-full animate-pulse bg-white"></div>
-	<div className="w-3 h-3 rounded-full animate-pulse bg-white"></div>
-	<div className="w-3 h-3 rounded-full animate-pulse bg-white"></div>
-</div>
-: 
-<span>PAY Via Stripe</span>
-}
+      <button
+        type="submit"
+        disabled={!stripe || loading}
+        className="w-full bg-primary text-white font-medium py-3 rounded-lg mt-5 uppercase flex items-center gap-2 justify-center"
+      >
+        {loading ? (
+          <div className="flex items-center justify-center space-x-2 py-2">
+            <div className="w-3 h-3 rounded-full animate-pulse bg-white"></div>
+            <div className="w-3 h-3 rounded-full animate-pulse bg-white"></div>
+            <div className="w-3 h-3 rounded-full animate-pulse bg-white"></div>
+          </div>
+        ) : (
+          <span>PAY Via Stripe</span>
+        )}
       </button>
     </form>
   );
