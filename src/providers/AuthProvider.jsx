@@ -34,26 +34,25 @@ const emailPasswordLogin = async (email, password) => {
   }
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
-        setUser(currentUser);
-        if (currentUser) {
-            const userInfo = { email: currentUser.email };
-            const {data} = await axiosCommon.post('/jwt', userInfo)
-            if(data.token){
-                localStorage.setItem('access-token', data.token);
-                setLoading(false);
-            }
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      if (currentUser) {
+        try {
+          const userInfo = { email: currentUser.email };
+          const { data } = await axiosCommon.post('/jwt', userInfo);
+          if (data.token) {
+            localStorage.setItem('access-token', data.token);
+          }
+        } catch (error) {
+          console.error("Token fetch error: ", error);
         }
-        else {
-            localStorage.removeItem('access-token');
-            setLoading(false);
-        }
-        
+      } else {
+        localStorage.removeItem('access-token');
+      }
+      setLoading(false);
     });
-    return () => {
-        return unsubscribe();
-    }
-}, [user,axiosCommon])
+    return () => unsubscribe();
+  }, [auth]);
 
 
   const authInfo = {googleLogin,loading,user,emailPasswordRegister,emailPasswordLogin,logOut,setUser};

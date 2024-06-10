@@ -17,6 +17,7 @@ import useAxiosCommon from "../hooks/useAxiosCommon";
 const PropertyDetails = () => {
   const [rating, SetRating] = useState(0);
   const [reviewModal, setReviewModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false)
   const axiosCommon = useAxiosCommon();
   const { user } = useAuth();
   const { id } = useParams();
@@ -37,6 +38,25 @@ const PropertyDetails = () => {
     },
   });
 
+  const handleReport = async (e) => {
+    e.preventDefault();
+    try {
+      const reporter_name = e.target.name.value;
+      const report_description = e.target.description.value;
+      const reporter_email = e.target.email.value;
+      const report = {
+        reporter_name,
+        report_description,
+        reporter_email,
+        property_id: id,
+        property_title: property?.property_title,
+        property_agent_name: property?.agent_name
+      };
+      await reportAsync(report);
+    } catch (error) {
+      toast.error("Something Went Wrong");
+    }
+  };
   const handleReview = async (e) => {
     e.preventDefault();
     try {
@@ -76,6 +96,16 @@ const PropertyDetails = () => {
       refetch()
       setReviewModal(false)
       toast.success("Review Added Successfully");
+    },
+  });
+  const { mutateAsync: reportAsync } = useMutation({
+    mutationFn: async (report) => {
+      const { data } = await axiosCommon.post(`/reports`, report);
+      return data;
+    },
+    onSuccess: () => {
+      setReportModal(false)
+      toast.success("Report Added Successfully");
     },
   });
 
@@ -230,12 +260,20 @@ const PropertyDetails = () => {
                 From {reviews?.review_count} Reviews
               </span>
             </div>
+            <div className="flex items-center gap-3">
             <button
               onClick={() => setReviewModal(true)}
               className="px-4 py-2 rounded-md bg-primary text-white font-medium"
             >
               Share Review
             </button>
+            <button
+              onClick={() => setReportModal(true)}
+              className="px-4 py-2 rounded-md bg-red-500 text-white font-medium"
+            >
+             Report Property
+            </button>
+            </div>
           </div>
 
           <Swiper
@@ -322,6 +360,52 @@ const PropertyDetails = () => {
             </div>
             <button className="bg-primary text-white font-medium w-full py-3 rounded-md">
               Submit Review
+            </button>
+          </form>
+        </Modal>
+        <Modal
+          open={reportModal}
+          footer={false}
+          onCancel={() => setReportModal(false)}
+        >
+          <form
+            onSubmit={handleReport}
+            className="p-5 flex w-full items-center flex-col gap-5"
+          >
+            <div className="w-full">
+              <label class="block mb-2 text-sm text-gray-600  ">
+                Reporter Name
+              </label>
+              <input
+                type="text"
+                disabled
+                defaultValue={user?.displayName}
+                required
+                name="name"
+                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+            </div>
+            <div className="w-full">
+              <label class="block mb-2 text-sm text-gray-600  ">
+                Reporter Email
+              </label>
+              <input
+                type="text"
+                disabled
+                defaultValue={user?.email}
+                required
+                name="email"
+                class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+              />
+            </div>
+            <div className="w-full">
+              <label class="block mb-2 text-sm text-gray-600  ">
+                Report Reason
+              </label>
+              <TextArea name="description" rows={4} />
+            </div>
+            <button className="bg-red-500 text-white font-medium w-full py-3 rounded-md">
+              Submit Report
             </button>
           </form>
         </Modal>

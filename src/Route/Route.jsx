@@ -9,6 +9,7 @@ import AdminManageProperties from '../pages/AdminDashboard/AdminManageProperties
 import AdminManageReviews from '../pages/AdminDashboard/AdminManageReviews';
 import AdminManageUsers from '../pages/AdminDashboard/AdminManageUsers';
 import AdminOverview from '../pages/AdminDashboard/AdminOverview';
+import AdminReportProperties from '../pages/AdminDashboard/AdminReportProperties';
 import AgentAddProperty from '../pages/AgentDashboard/AgentAddProperty';
 import AgentMyProperties from '../pages/AgentDashboard/AgentMyProperties';
 import AgentOverview from '../pages/AgentDashboard/AgentOverview';
@@ -141,6 +142,10 @@ const Route = createBrowserRouter([
         {
           path: 'properties',
           element: <AdminManageProperties/>
+        },
+        {
+          path: 'reports',
+          element: <AdminReportProperties/>
         },
         {
           path: 'profile',

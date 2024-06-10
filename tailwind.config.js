@@ -12,6 +12,9 @@ export default {
       fontFamily: {
         'poppins' : 'Poppins'
       },
+      dropShadow: {
+        'custom': '4px 10px 30px rgba(67, 97, 238, 0.40)',
+      },
       backgroundImage: {
         'login': "linear-gradient(180deg, rgba(4, 26, 60, 0.45) 0%, rgba(4, 26, 60, 0.90) 100%), url('https://i.ibb.co/mtVcvCx/luke-stackpoole-e-Wq-Og-J-lfi-I-unsplash.jpg')",
         'register': "linear-gradient(180deg, rgba(4, 26, 60, 0.45) 0%, rgba(4, 26, 60, 0.90) 100%), url('https://i.ibb.co/Qc6KpTQ/alexander-andrews-Dr6-VBM0-KNsw-unsplash.jpg')",

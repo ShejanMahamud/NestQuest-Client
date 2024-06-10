@@ -69,7 +69,7 @@ const Banner = () => {
     >
         <div className='w-full flex flex-col items-start gap-3'>
         <span className='text-primary font-medium'>REAL ESTATE</span>
-<h1 className='text-5xl font-semibold leading-[50px]'>Find the perfect home you love..!</h1>
+<h1 className='lg:text-5xl md:text-4xl text-3xl font-semibold leading-[50px]'>Find the perfect home you love..!</h1>
 <p className='leading-[26px] text-[#808080] text-sm'>
   Discover your dream home with us. Explore a variety of properties that fit your lifestyle and budget. Our team is dedicated to helping you find a place.
 </p>
@@ -87,7 +87,7 @@ const Banner = () => {
 
       </Swiper>
         </div>
-        <div className='bg-white px-10 py-5 rounded-lg shadow-xl lg:w-[80%] w-full mx-auto'>
+        <div className='bg-white lg:px-10 px-5 py-5 rounded-lg shadow-xl lg:w-[80%] w-full mx-auto'>
         <Tabs defaultActiveKey="1" items={items} className='w-full'/>
         </div>
         <div className='w-full flex lg:flex-row flex-col items-center justify-center lg:col-span-2  md:flex-row lg:gap-10 gap-5 lg:-mb-40 md:-mb-24'>
