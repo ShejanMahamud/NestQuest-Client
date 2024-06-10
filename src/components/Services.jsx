@@ -2,7 +2,7 @@ import React from "react";
 
 const Services = () => {
   return (
-    <div className="w-full bg-[#D4D4D4] lg:p-20 p-10 flex items-center flex-col justify-center">
+    <div className="w-full bg-[#D4D4D44D] lg:p-20 p-10 flex items-center flex-col justify-center">
       <h1 className="text-[#2B2B2B] text-xl font-medium mb-3">OUR SERVICES</h1>
       <p className="text-[#0B090A] text-2xl font-bold text-center">We always strive to provide the best services</p>
       <div className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 row-auto items-stretch gap-10 mt-16">

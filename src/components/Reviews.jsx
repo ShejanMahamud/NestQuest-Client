@@ -40,7 +40,7 @@ const Reviews = () => {
           Look What Our Customers Say!
         </span>
         <p className="text-[#737D8C] w-[60%] text-sm">
-          Fusce venenatis tellus a felis scelerisque, non pulvinar est pellentesque.
+          Explore what people saying about our services
         </p>
         <div className='flex items-center gap-5 mt-10'>
           <button ref={prevRef} className='border border-primary rounded-full p-2 text-primary text-2xl'>

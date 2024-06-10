@@ -1,4 +1,3 @@
-import { Tabs } from 'antd';
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -65,30 +64,28 @@ const Banner = () => {
     
   return (
     <div
-    className='bg-banner rounded-custom-banner w-full grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 row-auto items-stretch gap-x-20 gap-y-10 lg:p-24 md:p-16 p-10'
+    className='bg-banner rounded-custom-banner w-full grid lg:grid-cols-2 md:grid-cols-1 grid-cols-1 row-auto items-center gap-x-20 gap-y-10 lg:p-24 md:p-16 p-10'
     >
-        <div className='w-full flex flex-col items-start gap-3'>
+        <div className='w-full flex flex-col items-start gap-5'>
         <span className='text-primary font-medium'>REAL ESTATE</span>
 <h1 className='lg:text-5xl md:text-4xl text-3xl font-semibold leading-[50px]'>Find the perfect home you love..!</h1>
 <p className='leading-[26px] text-[#808080] text-sm'>
   Discover your dream home with us. Explore a variety of properties that fit your lifestyle and budget. Our team is dedicated to helping you find a place.
 </p>
-
-            <Swiper pagination={true} navigation={true} modules={[Pagination,Navigation]} className="w-full">
+        </div>
+        <div className='w-full'>
+        <Swiper pagination={true} navigation={true} modules={[Pagination,Navigation]} className="w-full shadow-2xl">
         <SwiperSlide>
-            <img src="https://i.ibb.co/898VDfb/alexander-andrews-Dr6-VBM0-KNsw-unsplash.jpg" alt="" className='w-[600px] md:w-[650px] h-[300px] rounded-lg object-cover'/>
+            <img src="https://i.ibb.co/898VDfb/alexander-andrews-Dr6-VBM0-KNsw-unsplash.jpg" alt="" className='w-full rounded-lg object-cover h-[400px] '/>
         </SwiperSlide>
         <SwiperSlide>
-        <img src="https://i.ibb.co/mtVcvCx/luke-stackpoole-e-Wq-Og-J-lfi-I-unsplash.jpg" alt="" className='w-[600px] h-[300px] md:w-[650px] rounded-lg object-cover'/>
+        <img src="https://i.ibb.co/mtVcvCx/luke-stackpoole-e-Wq-Og-J-lfi-I-unsplash.jpg" alt="" className='w-full rounded-lg object-cover h-[400px]'/>
         </SwiperSlide>
         <SwiperSlide>
-        <img src="https://i.ibb.co/QbsbLMW/log-home-58166-1280.jpg" alt="" className='w-[600px] h-[300px] md:w-[650px] rounded-lg object-cover'/>
+        <img src="https://i.ibb.co/QbsbLMW/log-home-58166-1280.jpg" alt="" className='w-full h-[400px] rounded-lg object-cover'/>
         </SwiperSlide>
 
       </Swiper>
-        </div>
-        <div className='bg-white lg:px-10 px-5 py-5 rounded-lg shadow-xl lg:w-[80%] w-full mx-auto'>
-        <Tabs defaultActiveKey="1" items={items} className='w-full'/>
         </div>
         <div className='w-full flex lg:flex-row flex-col items-center justify-center lg:col-span-2  md:flex-row lg:gap-10 gap-5 lg:-mb-40 md:-mb-24'>
             <div className='bg-white shadow-lg px-5 py-3 rounded-full flex items-center gap-3'>
