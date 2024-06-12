@@ -60,8 +60,8 @@ const {mutateAsync} = useMutation({
     <div className="border-l border-[#e4e5e8] w-full min-h-screen px-10 py-10 font-inter">
 <div className="w-full">
   <h1 className="text-xl text-[#18191C] font-medium mb-10">Post A Property</h1>
-  <form onSubmit={handleAddProperty} className="w-full grid grid-cols-3 row-auto items-center gap-x-5 gap-y-5">
-    <div className="flex flex-col items-start gap-2 col-span-3">
+  <form onSubmit={handleAddProperty} className="w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 row-auto items-center gap-x-5 gap-y-5">
+    <div className="flex flex-col items-start gap-2 lg:col-span-3 col-span-1">
       <h1 className="text-sm text-[#18191C] mb-2">Property Title</h1>
       <input
         type="text"
@@ -71,7 +71,7 @@ const {mutateAsync} = useMutation({
         placeholder="Property Title"
       />
     </div>
-    <div className="flex flex-col items-start gap-2 col-span-2">
+    <div className="flex flex-col items-start gap-2 lg:col-span-2 col-span-1">
       <h1 className="text-sm text-[#18191C] mb-2">Property Detail Location</h1>
       <input
         type="text"
@@ -84,7 +84,7 @@ const {mutateAsync} = useMutation({
     <div className="flex flex-col items-start gap-2 col-span-1 ">
       <h1 className="text-sm text-[#18191C] mb-2">Property Image</h1>
         <Upload {...uploadProps} className='px-4 py-3 rounded-lg bg-transparent w-full border border-[#E4E5E8] focus:outline-none'>
-    {!photo && <button type="button" className="text-gray-400 text-base flex items-center gap-2">
+    { <button type="button" className="text-gray-400 text-base flex items-center gap-2">
       <UploadOutlined />
       <span>Click to Upload</span></button>}
   </Upload>
@@ -135,7 +135,7 @@ const {mutateAsync} = useMutation({
         <option value="Sell">Sell</option>
       </select>
     </div>
-    <h1 className="text-lg text-[#18191C] font-medium my-5 col-span-3">
+    <h1 className="text-lg text-[#18191C] font-medium my-5 lg:col-span-3 col-span-1">
   Property Details 
     </h1>
     <div className="flex flex-col items-start gap-2">
@@ -187,10 +187,10 @@ const {mutateAsync} = useMutation({
         placeholder="Ex: 6x8 m²"
       />
     </div>
-  <h1 className="text-lg text-[#18191C] font-medium my-5 col-span-3">
+  <h1 className="text-lg text-[#18191C] font-medium my-5 lg:col-span-3 md:col-span-3 col-span-1">
   Property Description 
     </h1>
-    <div className='flex flex-col items-start gap-2 col-span-3 w-full'>
+    <div className='flex flex-col items-start gap-2 lg:col-span-3 md:col-span-3 col-span-1 w-full'>
   <h1 className='text-sm text-[#18191C]'>Description</h1>
   <JoditEditor
                 ref={editor}
@@ -200,7 +200,7 @@ const {mutateAsync} = useMutation({
               />
   </div>
 
-  <h1 className="text-lg text-[#18191C] font-medium my-5 col-span-3">
+  <h1 className="text-lg text-[#18191C] font-medium my-5 lg:col-span-3 md:col-span-3 col-span-1">
   Agent Information 
     </h1>
     <div className="flex flex-col items-start gap-2">
@@ -223,7 +223,7 @@ const {mutateAsync} = useMutation({
         defaultValue={user?.email}
       />
     </div>
-  <button className="bg-primary px-4 py-3 rounded-md text-white font-medium flex items-center gap-3 w-[30%] col-span-2 justify-center">
+  <button className="bg-primary px-4 py-3 rounded-md text-white font-medium flex items-center gap-3 lg:w-[30%] w-full lg:col-span-2 col-span-1 justify-center">
 <span>Add Property</span>
 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
 <path d="M5 12H19" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

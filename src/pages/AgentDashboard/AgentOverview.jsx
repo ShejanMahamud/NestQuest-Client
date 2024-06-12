@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { memo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Area, AreaChart, CartesianGrid, Legend, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, AreaChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import useAuth from '../../hooks/useAuth';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
@@ -47,7 +47,7 @@ const AgentOverview = () => {
       <div className='flex flex-col items-start gap-2'>
         <h1 className='text-[#18191C] text-lg font-medium'>Hello, {user?.displayName}</h1>
         <p className='text-[#767F8C] text-sm'>Here is your daily activities and properties updates</p>
-        <div className='w-full grid grid-cols-3 row-auto items-center justify-center gap-5 mt-10'>
+        <div className='w-full grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 row-auto items-center justify-center gap-5 mt-10'>
           <div className='w-full px-5 py-5 flex items-center justify-between rounded-lg bg-[#E7F0FA]'>
             <div className='flex flex-col items-start gap-1'>
               <h1 className='text-[#18191C] text-2xl font-medium'>{stats?.propertiesCount}</h1>
@@ -81,7 +81,9 @@ const AgentOverview = () => {
         <div className='w-full grid lg:grid-cols-2 grid-cols-1 row-auto items-start gap-10'>
           <div>
             <h1 className='mt-16 mb-10 font-medium text-lg'>Property Statistics</h1>
-            <AreaChart
+           <div style={{ width: '100%', height: 300 }}>
+           <ResponsiveContainer>
+           <AreaChart
               width={500}
               height={400}
               data={data}
@@ -100,10 +102,14 @@ const AgentOverview = () => {
               <Area type="monotone" dataKey="requestedCount" stackId="1" stroke="#82ca9d" fill="#82ca9d" />
               <Area type="monotone" dataKey="soldCount" stackId="1" stroke="#ffc658" fill="#ffc658" />
             </AreaChart>
+           </ResponsiveContainer>
+           </div>
           </div>
           <div>
             <h1 className='mt-16 mb-10 font-medium text-lg'>Selling Statistics</h1>
-            <LineChart
+            <div style={{ width: '100%', height: 300 }}>
+              <ResponsiveContainer>
+              <LineChart
               width={500}
               height={400}
               data={data2}
@@ -121,6 +127,8 @@ const AgentOverview = () => {
               <Legend />
               <Line type="monotone" dataKey="price" stroke="#8884d8" activeDot={{ r: 8 }} />
             </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>

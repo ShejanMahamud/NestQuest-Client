@@ -64,7 +64,7 @@ if(rolePending || loading){
 
         <p className="text-[#737D8C] text-center w-[60%] mx-auto text-sm mb-3">{role} of NestQuest</p>
 
-<div className="flex flex-col items-center justify-center w-full my-10 gap-5 px-40">
+<div className="flex flex-col items-center justify-center w-full my-10 gap-5 lg:px-40 md:px-20 px-10">
 
 <div className="w-full">
               <label class="block mb-2 text-sm text-gray-600  ">

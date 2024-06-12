@@ -130,9 +130,9 @@ const PropertyDetails = () => {
   }
 
   return (
-    <div className="w-full p-10 grid grid-cols-1 row-auto items-center gap-10">
-      <div className="w-full grid grid-cols-[70%_25%] gap-10 items-start">
-        <div className="flex flex-col items-start gap-5">
+    <div className="w-full lg:p-10 p-5">
+      <div className="w-full grid lg:grid-cols-[75%_25%] md:grid-cols-2 grid-cols-1 row-auto items-start gap-5">
+        <div className="flex flex-col items-start gap-5 w-full">
           <img
             src={property?.property_image}
             alt=""
@@ -177,13 +177,13 @@ const PropertyDetails = () => {
               <div className="w-full flex items-center gap-10">
                 <div className="flex items-center gap-2">
                   <IoBedOutline className="text-primary text-3xl" />
-                  <span className="text-[#000929] opacity-70 text-lg">
+                  <span className="text-[#000929] opacity-70 lg:text-lg md:text-base text-xs">
                     {property?.property_rooms} Rooms
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <PiBathtub className="text-primary text-3xl" />
-                  <span className="text-[#000929] opacity-70 text-lg">
+                  <span className="text-[#000929] opacity-70 lg:text-lg md:text-base text-xs">
                     {property?.property_bathrooms} Bathroom
                   </span>
                 </div>
@@ -224,7 +224,7 @@ const PropertyDetails = () => {
                       </clipPath>
                     </defs>
                   </svg>
-                  <span className="text-[#000929] opacity-70 text-lg">
+                  <span className="text-[#000929] opacity-70 lg:text-lg md:text-base text-xs">
                     {property?.property_space}
                   </span>
                 </div>
@@ -245,11 +245,11 @@ const PropertyDetails = () => {
           <div className="bg-white shadow-lg rounded-lg p-2 w-full">
             <Map location={"Broadway 10012, New York, NY, USA"} />
           </div>
-          <button onClick={handleWishlist} className="w-full bg-primary text-white font-medium rounded-lg py-3">
+          <button onClick={handleWishlist} className="w-full bg-primary text-white font-medium rounded-lg lg:px-4 px-2 lg:py-3 py-2 mb-5 lg:mb-0 lg:text-base text-sm">
             Add To Wishlist
           </button>
         </div>
-        <div className="w-full col-span-2 bg-white shadow-xl rounded-lg p-10">
+        <div className="w-full lg:col-span-2 col-span-1 md:col-span-2 bg-white shadow-xl rounded-lg lg:p-10 p-5">
           <h1 className="text-lg font-medium mb-5">Reviews</h1>
           <div className="w-full flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -260,16 +260,16 @@ const PropertyDetails = () => {
                 From {reviews?.review_count} Reviews
               </span>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex lg:flex-row flex-col items-center gap-3">
             <button
               onClick={() => setReviewModal(true)}
-              className="px-4 py-2 rounded-md bg-primary text-white font-medium"
+              className="lg:px-4 px-2 lg:text-base text-xs py-2 rounded-md bg-primary text-white font-medium"
             >
               Share Review
             </button>
             <button
               onClick={() => setReportModal(true)}
-              className="px-4 py-2 rounded-md bg-red-500 text-white font-medium"
+              className="lg:px-4 px-2 lg:text-base text-xs py-2 rounded-md bg-red-500 text-white font-medium"
             >
              Report Property
             </button>

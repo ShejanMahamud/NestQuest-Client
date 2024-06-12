@@ -71,7 +71,7 @@ if (isPending) {
       <h1 className="text-2xl text-[#18191C] font-medium mb-10">
         Manage Reviews
       </h1>
-      <div className='w-full grid grid-cols-2 row-auto items-center gap-5'>
+      <div className='w-full grid lg:grid-cols-2 grid-cols-1 row-auto items-center gap-5'>
         {
           reviews && reviews.map(review => (
             <div key={review?._id} className="bg-white py-5 px-5 rounded-xl shadow-lg flex flex-col items-start gap-5 w-full">
@@ -81,6 +81,11 @@ if (isPending) {
                     />
                     <h1 className="text-sm">{review?.review_title}</h1>
                     <p className='text-xs text-gray-400'>{review?.review_description}</p>
+                    <Rate
+                        disabled
+                        defaultValue={review?.review_rating}
+                        className="mx-0 flex lg:hidden md:hidden"
+                      />
                     <hr className="w-full border border-[#D4D4D4] my-2" />
                     <div className="w-full flex items-center justify-between">
                       <div className="flex items-center gap-2">
@@ -98,7 +103,7 @@ if (isPending) {
                       <Rate
                         disabled
                         defaultValue={review?.review_rating}
-                        className="gap-0"
+                        className="mx-0 hidden lg:flex md:flex"
                       />
                       <button 
                       onClick={()=>handleDeleteReviews(review?._id)} 

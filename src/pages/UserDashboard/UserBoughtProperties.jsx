@@ -37,7 +37,7 @@ const UserBoughtProperties = () => {
       <h1 className="text-2xl text-[#18191C] font-medium mb-10">
         Property Bought
       </h1>
-      <div className="w-full grid grid-cols-2 row-auto items-center gap-x-10 gap-y-5 ">
+      <div className="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 row-auto items-center gap-x-10 gap-y-5 ">
         {properties.map((property) => (
           <div
             key={property?._id}

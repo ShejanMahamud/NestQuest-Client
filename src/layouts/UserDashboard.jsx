@@ -26,15 +26,15 @@ const UserDashboard = () => {
 
   return (
     <>
-      <div className="w-full h-screen md:grid md:grid-cols-[20%_80%] grid grid-cols-[1fr]">
+      <div className="w-full h-screen lg:grid lg:grid-cols-[20%_80%] grid grid-cols-[1fr]">
         <button 
-          className="md:hidden fixed top-2 z-50 bg-primary text-white p-2 "
+          className="lg:hidden fixed top-2 z-50 bg-primary text-white p-2 "
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? <IoCloseOutline/>  : <IoMenuOutline /> }
         </button>
 
-        <div className={`fixed md:static top-0 left-0 w-full  h-full bg-[#181818] py-10 px-5 md:px-3 lg:px-5 overflow-y-auto transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 z-20`}>
+        <div className={`fixed lg:static top-0 left-0 w-full  h-full bg-[#181818] py-10 px-5 lg:px-3 lg:px-5 overflow-y-auto transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 z-20`}>
           <div className="flex flex-col w-full items-center gap-2 mb-5">
             <img src={user?.photoURL} alt="" className="w-20 h-20 rounded-full border border-primary object-cover" />
             <h1 className="text-xl text-white font-medium">{user?.displayName}</h1>
@@ -113,7 +113,7 @@ const UserDashboard = () => {
             </button>
           </div>
         </div>
-        <div className="md:col-start-2 col-span-1 h-full z-10 overflow-y-auto">
+        <div className="lg:col-start-2 col-span-1 h-full z-10 overflow-y-auto">
           <Outlet />
           <div className="w-full border-t border-[#E4E5E8] flex items-center justify-center py-5">
             <p className="text-[#767F8C] text-sm">@ {currentYear} NestQuest - All rights Reserved</p>

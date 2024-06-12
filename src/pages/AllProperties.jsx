@@ -63,29 +63,24 @@ if(isPending){
               {`Latest Listed Properties `}
             </span>
             <p className=" text-sm text-white">
-            Donec porttitor euismod dignissim. Nullam a lacinia ipsum, nec dignissim purus. 
+            Discover the latest listings in your area. Explore a variety of properties to find your perfect home. 
             </p>
           </div>
-            <ul className="flex items-center gap-1 text-white text-sm">
-              <li>Home</li>
-              <li>/</li>
-              <li>All Properties</li>
-            </ul>
 
         </div>
       </div>
-      <div className='w-full px-20 flex items-center justify-end mt-5'>
+      <div className='w-full lg:px-20 md:px-10 px-5 flex items-center justify-end mt-5'>
         <div className='flex items-center gap-3'>
           <form  className='border border-gray-400 rounded-lg px-5 py-3 flex items-center gap-5'>
-          <input onChange={handleSearch} name='search' type="text" className='focus:outline-none' placeholder='Search Properties'/>
+          <input onChange={handleSearch} name='search' type="text" className='focus:outline-none w-[80%] lg:w-full' placeholder='Search Properties'/>
           <button><IoIosSearch className='text-xl text-primary'/></button>
           </form>
-          <button onClick={handleSort} className='border border-primary px-4 py-3 rounded-md text-primary'>
-            Sort Properties
+          <button onClick={handleSort} className='border border-primary px-4 lg:text-base text-sm py-3 rounded-md text-primary'>
+            Sort
           </button>
         </div>
       </div>
-      <div className='w-[90%] mx-auto grid grid-cols-3 row-auto items-center gap-x-10 gap-y-5 my-20'>
+      <div className='w-[90%] mx-auto grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 row-auto items-center gap-10 my-20'>
         {
           loading ? <div className="flex items-center justify-center space-x-2 w-full">
           <div className="w-4 h-4 rounded-full animate-pulse bg-primary"></div>

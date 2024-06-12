@@ -26,16 +26,16 @@ const AdminDashboard = () => {
 
   return (
     <>
-      <div className="w-full h-screen md:grid md:grid-cols-[20%_80%]">
+      <div className="w-full h-screen lg:grid lg:grid-cols-[20%_80%]">
         {/* Sidebar Toggle Button */}
         <button 
-          className="md:hidden fixed top-2 z-50 bg-primary text-white p-2 "
+          className="lg:hidden fixed top-2 z-50 bg-primary text-white p-2 "
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           {sidebarOpen ? <IoCloseOutline/>  : <IoMenuOutline /> }
         </button>
 
-        <div className={`fixed md:static top-0 left-0 w-full h-full bg-[#181818] py-10 px-5 md:px-3 lg:px-5 overflow-y-auto transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 z-20`}>
+        <div className={`fixed lg:static top-0 left-0 w-full h-full bg-[#181818] py-10 px-5 lg:px-3 lg:px-5 overflow-y-auto transform transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0 z-20`}>
           <div className="flex flex-col w-full items-center gap-2 mb-5">
             <img src={user?.photoURL} alt="" className="w-20 h-20 rounded-full border border-primary object-cover" />
             <h1 className="text-xl text-white font-medium">{user?.displayName}</h1>

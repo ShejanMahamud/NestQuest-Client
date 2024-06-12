@@ -35,7 +35,7 @@ const AgentMyProperties = () => {
       <h1 className="text-2xl text-[#18191C] font-medium mb-10">
         My Properties
       </h1>
-      <div className="w-full grid grid-cols-2 row-auto items-center gap-x-10 gap-y-5 ">
+      <div className="w-full grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 row-auto items-center gap-x-10 gap-y-5 ">
         {properties.map((property) => (
           <div
             key={property?._id}
@@ -55,9 +55,11 @@ const AgentMyProperties = () => {
                 <h1 className="text-xl text-primary font-medium">
                   ${property?.property_price_min} - $
                   {property?.property_price_max}{" "}
-                  <span className="text-[#000929] opacity-50 text-base font-normal">
+                  {
+                    property?.property_type === 'Rent' && <span className="text-[#000929] opacity-50 text-base font-normal">
                     /Month
                   </span>
+                  }
                 </h1>
                 <div className="flex items-center gap-2">
                   {
