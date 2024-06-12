@@ -23,6 +23,10 @@ password: Smjihad0
 
 [Repo Link](https://github.com/ShejanMahamud/NestQuest-Server)
 
+# Live Link
+
+[Netlify Link](https://nestquest-web.netlify.app/)
+
 # Key Features
 
 > - User Authentication & Authorization
@@ -62,9 +66,5 @@ password: Smjihad0
 ![MongoDB](https://img.shields.io/badge/MONGODB-4DB33D?style=for-the-badge&logo=mongodb&logoColor=white)
 ![NodeJS](https://img.shields.io/badge/NODEJS-3C873A?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-
-# Live Link
-
-[Netlify Link](https://nestquest-web.netlify.app/)
 
 # Thanks For Reading & Visiting!
