@@ -67,4 +67,33 @@ password: Smjihad0
 ![NodeJS](https://img.shields.io/badge/NODEJS-3C873A?style=for-the-badge&logo=nodedotjs&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
+# Problem Faced and Solution
+
+One of the requirements was to ensure that if an admin marks an agent as fraudulent, the properties listed by that agent should not be displayed. To achieve this, I utilized the MongoDB aggregation pipeline. 
+
+Using MongoDB's powerful aggregation framework, I was able to filter out properties based on the agent's status. Here's a brief explanation of the approach:
+
+1. **Lookup**: Used `$lookup` to join the properties collection with the users collection to get the agent's status.
+2. **Match**: Applied a `$match` stage to filter out properties where the agent's status is marked as fraudulent.
+3. **Projection**: Used `$project` to specify the fields to be included in the final output.
+
+This approach ensures that properties listed by fraudulent agents are dynamically excluded from the results, maintaining the integrity of the listings.
+
+# Run This Project
+
+```
+https://github.com/ShejanMahamud/NestQuest-Client.git
+```
+```
+npm instal
+```
+Dev Mode:
+```
+npm run dev
+```
+Build Mode:
+```
+npm run build
+```
+
 # Thanks For Reading & Visiting!
