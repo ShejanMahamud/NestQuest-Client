@@ -6,8 +6,8 @@
 # Agent Account
 
 ```
-email: shazid006@gmail.com
-password: Smjihad0
+email: shejanmahamud006@gmail.com
+password: Smjihad123@
 
 ```
 
@@ -15,7 +15,15 @@ password: Smjihad0
 
 ```
 email: dev.shejanmahamud@gmail.com
-password: Smjihad0
+password: Ihateu123@
+
+```
+
+# User Account
+
+```
+email: dev.shejanmahamud@gmail.com
+password: Smjihad123@
 
 ```
 
