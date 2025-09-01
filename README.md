@@ -15,7 +15,7 @@ password: Smjihad123@
 
 ```
 email: dev.shejanmahamud@gmail.com
-password: Ihateu123@
+password: Smjihad123@
 
 ```
 
@@ -23,7 +23,7 @@ password: Ihateu123@
 
 ```
 email: dev.shejanmahamud@gmail.com
-password: Smjihad123@
+password: Ihateu123@
 
 ```
 
